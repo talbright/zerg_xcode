@@ -6,12 +6,9 @@ require 'zerg_xcode'
 require 'test/unit'
 
 class SdkTest < Test::Unit::TestCase
-  def test_all
+  def test_can_find_any_macosx_sdk
     all_sdks = ZergXcode::Builder::Sdk.all
-    mac105 = { :group => 'Mac OS X SDKs', :name => 'Mac OS X 10.5',
-               :arg => 'macosx10.5' }
-    assert_operator all_sdks, :include?, mac105, 'MacOS 10.5 SDK included'
-
-    assert_operator all_sdks, :equal?, all_sdks, 'SDKs are cached'
+    macsdk = all_sdks.detect{|sdk| sdk[:arg] =~ /^macosx[0-9\.]+$/}
+    assert_not_nil macsdk
   end
 end
