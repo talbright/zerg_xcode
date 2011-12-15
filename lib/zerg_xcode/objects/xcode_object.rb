@@ -36,7 +36,8 @@ class XcodeObject
   def self.new(*args)
     return super unless self == ZergXcode::XcodeObject
     if hash_isa = args.first['isa']
-      classes = ZergXcode::Objects.constants
+      hash_isa = hash_isa.to_sym
+      classes = ZergXcode::Objects.constants.map(&:to_sym)
       if classes.include? hash_isa
         return ZergXcode::Objects.const_get(hash_isa).new(*args)
       end
