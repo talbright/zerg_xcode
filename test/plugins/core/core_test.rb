@@ -5,7 +5,7 @@
 require 'zerg_xcode'
 require 'stringio'
 require 'test/unit'
-require 'test/plugins/helper.rb'
+require 'plugins/helper.rb'
 
 class Plugins::CoreTest < Test::Unit::TestCase  
   include Plugins::TestHelper

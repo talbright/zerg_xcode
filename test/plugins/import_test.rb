@@ -4,7 +4,7 @@
 
 require 'zerg_xcode'
 require 'test/unit'
-require 'test/plugins/helper.rb'
+require 'plugins/helper.rb'
 
 require 'rubygems'
 require 'flexmock/test_unit'

@@ -6,7 +6,7 @@ require 'zerg_xcode'
 require 'stringio'
 require 'test/unit'
 
-require 'test/plugins/helper.rb'
+require 'plugins/helper.rb'
 require 'rubygems'
 require 'flexmock'
 
