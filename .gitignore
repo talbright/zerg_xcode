@@ -1,3 +1,9 @@
 .loadpath
-pkg/*
 .rvmrc
+
+coverage
+rdoc
+doc
+.yardoc
+.bundle
+pkg
