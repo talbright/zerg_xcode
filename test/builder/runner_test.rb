@@ -10,7 +10,7 @@ class RunnerTest < Test::Unit::TestCase
     @project = ZergXcode.load 'test/fixtures/ClosedLib'
     @configuration = 'Release'
     @sdk = ZergXcode::Builder::Sdk.all.
-        select { |s| /iPhone .* 3\.0$/ =~ s[:name] }.first
+        detect { |s| /i(?:OS|Phone) .*$/ =~ s[:name] }
     @golden_build_path = 'test/fixtures/ClosedLib/build/Release-iphoneos'
     @product = @golden_build_path + '/libClosedLib.a'
   end
