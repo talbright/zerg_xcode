@@ -42,12 +42,16 @@ end
 
 task :default => :test
 
-require 'rdoc/task'
-RDoc::Task.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
+begin
+  require 'rdoc/task'
+  RDoc::Task.new do |rdoc|
+    version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "zerg_xcode #{version}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+    rdoc.rdoc_dir = 'rdoc'
+    rdoc.title = "zerg_xcode #{version}"
+    rdoc.rdoc_files.include('README*')
+    rdoc.rdoc_files.include('lib/**/*.rb')
+  end
+rescue LoadError => e
+  # Rdoc compatible with 1.8 doesn't have rdoc/task
 end
