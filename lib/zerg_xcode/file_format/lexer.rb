@@ -16,10 +16,25 @@ class Lexer
     @i = 0
   end
 
+  def at_beginning?
+    @i == 0
+  end
+  private :at_beginning?
+
   def before_the_end?
     @i < @string.length
   end
   private :before_the_end?
+
+  def advance(n=1)
+    @i += n
+  end
+  private :advance
+
+  def peek(n=1)
+    @string[@i, n]
+  end
+  private :peek
 
   def tokenize
     tokens = []
@@ -32,9 +47,9 @@ class Lexer
   end
 
   def next_token
-    if @i == 0
+    if at_beginning?
       encoding_match = @string.match(/^\/\/ \!\$\*(.*?)\*\$\!/)
-      raise "No encoding - #{@string[0, 20]}" unless encoding_match
+      raise "No encoding - #{peek(20)}" unless encoding_match
       
       @i = encoding_match[0].length
       return [:encoding, encoding_match[1]]
@@ -42,52 +57,52 @@ class Lexer
 
     while before_the_end?
       # skip comments
-      if @string[@i, 2] == '/*'
-        @i += 2
-        @i += 1 while @string[@i, 2] != '*/'
-        @i += 2
+      if peek(2) == '/*'
+        advance(2)
+        advance while peek(2) != '*/'
+        advance(2)
         next
       end
       
-      case @string[@i, 1]
+      case peek
       when /\s/
-        @i += 1
+        advance
       when '(', ')', '{', '}', '=', ';', ','
         token = {'(' => :begin_array, ')' => :end_array,
                  '{' => :begin_hash, '}' => :end_hash,
-                 '=' => :assign, ';' => :stop, ',' => :comma}[@string[@i, 1]]
-        @i += 1
+                 '=' => :assign, ';' => :stop, ',' => :comma}[peek]
+        advance
         return token
       when '"'
         # string
-        @i += 1
+        advance
         token = ''
-        while @string[@i, 1] != '"'
-          if @string[@i, 1] == '\\'
-            @i += 1
-            case @string[@i, 1]            
+        while peek != '"'
+          if peek == '\\'
+            advance
+            case peek
             when 'n', 'r', 't'
-              token << { 'n' => "\n", 't' => "\t", 'r' => "\r" }[@string[@i, 1]]
-              @i += 1 
+              token << { 'n' => "\n", 't' => "\t", 'r' => "\r" }[peek]
+              advance
             when '"', "'", '\\'
-              token << @string[@i]
-              @i += 1
+              token << peek
+              advance
             else
-              raise "Uknown escape sequence \\#{@string[@i, 20]}"
+              raise "Uknown escape sequence \\#{peek 20}"
             end
           else
-            token << @string[@i]
-            @i += 1
+            token << peek
+            advance
           end
         end
-        @i += 1
+        advance
         return [:string, token]
       else
         # something
         len = 0
         len += 1 while /[^\s\t\r\n\f(){}=;,]/ =~ @string[@i + len, 1]
-        token = [:symbol, @string[@i, len]]
-        @i += len
+        token = [:symbol, peek(len)]
+        advance(len)
         return token
       end
     end
