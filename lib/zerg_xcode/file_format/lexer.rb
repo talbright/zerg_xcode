@@ -16,6 +16,11 @@ class Lexer
     @i = 0
   end
 
+  def before_the_end?
+    @i < @string.length
+  end
+  private :before_the_end?
+
   def tokenize
     tokens = []
     while true
@@ -35,7 +40,7 @@ class Lexer
       return [:encoding, encoding_match[1]]
     end
 
-    while @i < @string.length
+    while before_the_end?
       # skip comments
       if @string[@i, 2] == '/*'
         @i += 2
