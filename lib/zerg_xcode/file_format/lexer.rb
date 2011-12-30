@@ -18,14 +18,14 @@ class Lexer
   def tokenize
     tokens = []
     while true
-      token = next_token
+      token = scan_token
       break unless token
       tokens << token
     end
     tokens
   end
 
-  def next_token
+  def scan_token
     return scan_encoding if @scan_buffer.at_beginning?
 
     while @scan_buffer.before_the_end?
@@ -46,7 +46,7 @@ class Lexer
       end
     end
   end
-  private :next_token
+  private :scan_token
 
   def scan_encoding
     encoding_match = @scan_buffer.match_and_advance(/^\/\/ \!\$\*(.*?)\*\$\!/)
