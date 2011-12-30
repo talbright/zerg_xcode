@@ -26,10 +26,10 @@ class Lexer
   end
 
   def next_token
-    return parse_encoding if @scan_buffer.at_beginning?
+    return scan_encoding if @scan_buffer.at_beginning?
 
     while @scan_buffer.before_the_end?
-      skip_comment
+      scan_comment
       
       case @scan_buffer.peek
       when /\s/
@@ -40,31 +40,31 @@ class Lexer
                  '=' => :assign, ';' => :stop, ',' => :comma}[@scan_buffer.take]
         return token
       when '"'
-        return parse_string
+        return scan_string
       else
-        return parse_symbol
+        return scan_symbol
       end
     end
   end
   private :next_token
 
-  def parse_encoding
+  def scan_encoding
     encoding_match = @scan_buffer.match_and_advance(/^\/\/ \!\$\*(.*?)\*\$\!/)
     raise "No encoding - #{peek(20)}" unless encoding_match
     return [:encoding, encoding_match[1]]
   end
-  private :parse_encoding
+  private :scan_encoding
 
-  def skip_comment
+  def scan_comment
     if @scan_buffer.peek(2) == '/*'
       @scan_buffer.advance(2)
       @scan_buffer.advance while @scan_buffer.peek(2) != '*/'
       @scan_buffer.advance(2)
     end
   end
-  private :skip_comment
+  private :scan_comment
 
-  def parse_string
+  def scan_string
     @scan_buffer.advance
     token = ''
     while @scan_buffer.peek != '"'
@@ -85,14 +85,14 @@ class Lexer
     @scan_buffer.advance
     return [:string, token]
   end
-  private :parse_string
+  private :scan_string
 
-  def parse_symbol
+  def scan_symbol
     symbol = ""
     symbol << @scan_buffer.take while @scan_buffer.peek(1) =~ /[^\s\t\r\n\f(){}=;,]/
     return [:symbol, symbol]
   end
-  private :parse_symbol
+  private :scan_symbol
 
   def self.tokenize(string)
     Lexer.new(string).tokenize
