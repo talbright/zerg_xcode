@@ -32,6 +32,9 @@ Rake::TestTask.new(:test) do |test|
   test.verbose = true
 end
 
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:spec)
+
 require 'rcov/rcovtask'
 Rcov::RcovTask.new do |test|
   test.libs << 'test'
@@ -40,7 +43,7 @@ Rcov::RcovTask.new do |test|
   test.rcov_opts << '--exclude "gems/*"'
 end
 
-task :default => :test
+task :default => [:spec, :test]
 
 begin
   require 'rdoc/task'
