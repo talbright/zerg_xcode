@@ -26,11 +26,7 @@ class Lexer
   end
 
   def next_token
-    if @scan_buffer.at_beginning?
-      encoding_match = @scan_buffer.match_and_advance(/^\/\/ \!\$\*(.*?)\*\$\!/)
-      raise "No encoding - #{peek(20)}" unless encoding_match
-      return [:encoding, encoding_match[1]]
-    end
+    return parse_encoding if @scan_buffer.at_beginning?
 
     while @scan_buffer.before_the_end?
       skip_comment
@@ -51,6 +47,13 @@ class Lexer
     end
   end
   private :next_token
+
+  def parse_encoding
+    encoding_match = @scan_buffer.match_and_advance(/^\/\/ \!\$\*(.*?)\*\$\!/)
+    raise "No encoding - #{peek(20)}" unless encoding_match
+    return [:encoding, encoding_match[1]]
+  end
+  private :parse_encoding
 
   def skip_comment
     if @scan_buffer.peek(2) == '/*'
