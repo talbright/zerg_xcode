@@ -22,6 +22,12 @@ class ScanBuffer
     @string[@i, n]
   end
 
+  def take(n=1)
+    result = peek(n)
+    advance(n)
+    result
+  end
+
   def match_and_advance(pattern)
     match = @string[@i..-1].match(pattern)
     @i += match[0].length if match

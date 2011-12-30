@@ -41,8 +41,7 @@ class Lexer
       when '(', ')', '{', '}', '=', ';', ','
         token = {'(' => :begin_array, ')' => :end_array,
                  '{' => :begin_hash, '}' => :end_hash,
-                 '=' => :assign, ';' => :stop, ',' => :comma}[@scan_buffer.peek]
-        @scan_buffer.advance
+                 '=' => :assign, ';' => :stop, ',' => :comma}[@scan_buffer.take]
         return token
       when '"'
         # string
@@ -53,17 +52,14 @@ class Lexer
             @scan_buffer.advance
             case @scan_buffer.peek
             when 'n', 'r', 't'
-              token << { 'n' => "\n", 't' => "\t", 'r' => "\r" }[@scan_buffer.peek]
-              @scan_buffer.advance
+              token << { 'n' => "\n", 't' => "\t", 'r' => "\r" }[@scan_buffer.take]
             when '"', "'", '\\'
-              token << @scan_buffer.peek
-              @scan_buffer.advance
+              token << @scan_buffer.take
             else
               raise "Uknown escape sequence \\#{@scan_buffer.peek 20}"
             end
           else
-            token << @scan_buffer.peek
-            @scan_buffer.advance
+            token << @scan_buffer.take
           end
         end
         @scan_buffer.advance
@@ -71,8 +67,7 @@ class Lexer
       else
         symbol = ""
         while @scan_buffer.peek(1) =~ /[^\s\t\r\n\f(){}=;,]/
-          symbol << @scan_buffer.peek(1)
-          @scan_buffer.advance
+          symbol << @scan_buffer.take
         end
         return [:symbol, symbol]
       end
