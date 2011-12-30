@@ -36,6 +36,13 @@ class Lexer
   end
   private :peek
 
+  def match_and_advance(pattern)
+    match = @string[@i..-1].match(pattern)
+    @i += match[0].length if match
+    match
+  end
+  private :match_and_advance
+
   def tokenize
     tokens = []
     while true
@@ -48,10 +55,8 @@ class Lexer
 
   def next_token
     if at_beginning?
-      encoding_match = @string.match(/^\/\/ \!\$\*(.*?)\*\$\!/)
+      encoding_match = match_and_advance(/^\/\/ \!\$\*(.*?)\*\$\!/)
       raise "No encoding - #{peek(20)}" unless encoding_match
-      
-      @i = encoding_match[0].length
       return [:encoding, encoding_match[1]]
     end
 
@@ -92,12 +97,12 @@ class Lexer
         advance
         return [:string, token]
       else
-        # something
-        len = 0
-        len += 1 while /[^\s\t\r\n\f(){}=;,]/ =~ @string[@i + len, 1]
-        token = [:symbol, peek(len)]
-        advance(len)
-        return token
+        symbol = ""
+        while peek(1) =~ /[^\s\t\r\n\f(){}=;,]/
+          symbol << peek(1)
+          advance
+        end
+        return [:symbol, symbol]
       end
     end
   end
