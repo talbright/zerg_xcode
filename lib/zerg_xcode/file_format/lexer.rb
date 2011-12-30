@@ -13,14 +13,11 @@ class Lexer
 
   def initialize(string)
     @string = string
+    @i = 0
   end
 
   def tokenize
-    encoding_match = @string.match(/^\/\/ \!\$\*(.*?)\*\$\!/)
-    raise "No encoding - #{@string[0, 20]}" unless encoding_match
-    
-    @i = encoding_match[0].length
-    tokens = [[:encoding, encoding_match[1]]]
+    tokens = []
     while true
       token = next_token
       break unless token
@@ -30,6 +27,14 @@ class Lexer
   end
 
   def next_token
+    if @i == 0
+      encoding_match = @string.match(/^\/\/ \!\$\*(.*?)\*\$\!/)
+      raise "No encoding - #{@string[0, 20]}" unless encoding_match
+      
+      @i = encoding_match[0].length
+      return [:encoding, encoding_match[1]]
+    end
+
     while @i < @string.length
       # skip comments
       if @string[@i, 2] == '/*'
