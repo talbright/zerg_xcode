@@ -9,6 +9,7 @@ require 'zerg_xcode/file_format/encoder.rb'
 require 'zerg_xcode/file_format/lexer.rb'
 require 'zerg_xcode/file_format/parser.rb'
 require 'zerg_xcode/file_format/paths.rb'
+require 'zerg_xcode/file_format/scan_buffer.rb'
 
 require 'zerg_xcode/builder/runner.rb'
 require 'zerg_xcode/builder/sdks.rb'

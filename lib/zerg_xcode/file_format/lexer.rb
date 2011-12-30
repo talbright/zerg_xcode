@@ -12,36 +12,8 @@ module ZergXcode
 class Lexer
 
   def initialize(string)
-    @string = string
-    @i = 0
+    @scan_buffer = ScanBuffer.new(string)
   end
-
-  def at_beginning?
-    @i == 0
-  end
-  private :at_beginning?
-
-  def before_the_end?
-    @i < @string.length
-  end
-  private :before_the_end?
-
-  def advance(n=1)
-    @i += n
-  end
-  private :advance
-
-  def peek(n=1)
-    @string[@i, n]
-  end
-  private :peek
-
-  def match_and_advance(pattern)
-    match = @string[@i..-1].match(pattern)
-    @i += match[0].length if match
-    match
-  end
-  private :match_and_advance
 
   def tokenize
     tokens = []
@@ -54,53 +26,53 @@ class Lexer
   end
 
   def next_token
-    if at_beginning?
-      encoding_match = match_and_advance(/^\/\/ \!\$\*(.*?)\*\$\!/)
+    if @scan_buffer.at_beginning?
+      encoding_match = @scan_buffer.match_and_advance(/^\/\/ \!\$\*(.*?)\*\$\!/)
       raise "No encoding - #{peek(20)}" unless encoding_match
       return [:encoding, encoding_match[1]]
     end
 
-    while before_the_end?
+    while @scan_buffer.before_the_end?
       skip_comment
       
-      case peek
+      case @scan_buffer.peek
       when /\s/
-        advance
+        @scan_buffer.advance
       when '(', ')', '{', '}', '=', ';', ','
         token = {'(' => :begin_array, ')' => :end_array,
                  '{' => :begin_hash, '}' => :end_hash,
-                 '=' => :assign, ';' => :stop, ',' => :comma}[peek]
-        advance
+                 '=' => :assign, ';' => :stop, ',' => :comma}[@scan_buffer.peek]
+        @scan_buffer.advance
         return token
       when '"'
         # string
-        advance
+        @scan_buffer.advance
         token = ''
-        while peek != '"'
-          if peek == '\\'
-            advance
-            case peek
+        while @scan_buffer.peek != '"'
+          if @scan_buffer.peek == '\\'
+            @scan_buffer.advance
+            case @scan_buffer.peek
             when 'n', 'r', 't'
-              token << { 'n' => "\n", 't' => "\t", 'r' => "\r" }[peek]
-              advance
+              token << { 'n' => "\n", 't' => "\t", 'r' => "\r" }[@scan_buffer.peek]
+              @scan_buffer.advance
             when '"', "'", '\\'
-              token << peek
-              advance
+              token << @scan_buffer.peek
+              @scan_buffer.advance
             else
-              raise "Uknown escape sequence \\#{peek 20}"
+              raise "Uknown escape sequence \\#{@scan_buffer.peek 20}"
             end
           else
-            token << peek
-            advance
+            token << @scan_buffer.peek
+            @scan_buffer.advance
           end
         end
-        advance
+        @scan_buffer.advance
         return [:string, token]
       else
         symbol = ""
-        while peek(1) =~ /[^\s\t\r\n\f(){}=;,]/
-          symbol << peek(1)
-          advance
+        while @scan_buffer.peek(1) =~ /[^\s\t\r\n\f(){}=;,]/
+          symbol << @scan_buffer.peek(1)
+          @scan_buffer.advance
         end
         return [:symbol, symbol]
       end
@@ -109,10 +81,10 @@ class Lexer
   private :next_token
 
   def skip_comment
-    if peek(2) == '/*'
-      advance(2)
-      advance while peek(2) != '*/'
-      advance(2)
+    if @scan_buffer.peek(2) == '/*'
+      @scan_buffer.advance(2)
+      @scan_buffer.advance while @scan_buffer.peek(2) != '*/'
+      @scan_buffer.advance(2)
     end
   end
   private :skip_comment
