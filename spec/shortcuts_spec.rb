@@ -3,7 +3,6 @@ require 'zerg_xcode'
 describe ZergXcode do
 
   context "when loading a file" do
-
     subject {ZergXcode.load 'test/fixtures/ZergSupport'}
 
     it "should find the targets" do
@@ -13,6 +12,12 @@ describe ZergXcode do
 
     it "should set the project's source filename" do
       subject.source_filename.should == 'test/fixtures/ZergSupport.xcodeproj/project.pbxproj'
+    end
+  end
+
+  context "when finding plugins" do
+    it "should return the correct class" do
+      ZergXcode.plugin('ls').should be_a(ZergXcode::Plugins::Ls)
     end
   end
 
