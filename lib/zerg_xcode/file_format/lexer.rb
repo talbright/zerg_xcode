@@ -65,11 +65,7 @@ class Lexer
         @scan_buffer.advance
         return [:string, token]
       else
-        symbol = ""
-        while @scan_buffer.peek(1) =~ /[^\s\t\r\n\f(){}=;,]/
-          symbol << @scan_buffer.take
-        end
-        return [:symbol, symbol]
+        return parse_symbol
       end
     end
   end
@@ -83,6 +79,13 @@ class Lexer
     end
   end
   private :skip_comment
+
+  def parse_symbol
+    symbol = ""
+    symbol << @scan_buffer.take while @scan_buffer.peek(1) =~ /[^\s\t\r\n\f(){}=;,]/
+    return [:symbol, symbol]
+  end
+  private :parse_symbol
 
   def self.tokenize(string)
     Lexer.new(string).tokenize
