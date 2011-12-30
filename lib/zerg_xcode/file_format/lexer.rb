@@ -19,59 +19,70 @@ class Lexer
     encoding_match = @string.match(/^\/\/ \!\$\*(.*?)\*\$\!/)
     raise "No encoding - #{@string[0, 20]}" unless encoding_match
     
-    i = encoding_match[0].length
+    @i = encoding_match[0].length
     tokens = [[:encoding, encoding_match[1]]]
-    while i < @string.length
+    while true
+      token = next_token
+      break unless token
+      tokens << token
+    end
+    tokens
+  end
+
+  def next_token
+    while @i < @string.length
       # skip comments
-      if @string[i, 2] == '/*'
-        i += 2
-        i += 1 while @string[i, 2] != '*/'
-        i += 2
+      if @string[@i, 2] == '/*'
+        @i += 2
+        @i += 1 while @string[@i, 2] != '*/'
+        @i += 2
         next
       end
       
-      case @string[i, 1]
+      case @string[@i, 1]
       when /\s/
-        i += 1
+        @i += 1
       when '(', ')', '{', '}', '=', ';', ','
-        tokens << {'(' => :begin_array, ')' => :end_array,
-                   '{' => :begin_hash, '}' => :end_hash,
-                   '=' => :assign, ';' => :stop, ',' => :comma}[@string[i, 1]]
-        i += 1
+        token = {'(' => :begin_array, ')' => :end_array,
+                 '{' => :begin_hash, '}' => :end_hash,
+                 '=' => :assign, ';' => :stop, ',' => :comma}[@string[@i, 1]]
+        @i += 1
+        return token
       when '"'
         # string
-        i += 1
+        @i += 1
         token = ''
-        while @string[i, 1] != '"'
-          if @string[i, 1] == '\\'
-            i += 1
-            case @string[i, 1]            
+        while @string[@i, 1] != '"'
+          if @string[@i, 1] == '\\'
+            @i += 1
+            case @string[@i, 1]            
             when 'n', 'r', 't'
-              token << { 'n' => "\n", 't' => "\t", 'r' => "\r" }[@string[i, 1]]
-              i += 1 
+              token << { 'n' => "\n", 't' => "\t", 'r' => "\r" }[@string[@i, 1]]
+              @i += 1 
             when '"', "'", '\\'
-              token << @string[i]
-              i += 1
+              token << @string[@i]
+              @i += 1
             else
-              raise "Uknown escape sequence \\#{@string[i, 20]}"
+              raise "Uknown escape sequence \\#{@string[@i, 20]}"
             end
           else
-            token << @string[i]
-            i += 1
+            token << @string[@i]
+            @i += 1
           end
         end
-        tokens << [:string, token]
-        i += 1
+        @i += 1
+        return [:string, token]
       else
         # something
         len = 0
-        len += 1 while /[^\s\t\r\n\f(){}=;,]/ =~ @string[i + len, 1]
-        tokens << [:symbol, @string[i, len]]
-        i += len
+        len += 1 while /[^\s\t\r\n\f(){}=;,]/ =~ @string[@i + len, 1]
+        token = [:symbol, @string[@i, len]]
+        @i += len
+        return token
       end
     end
-    return tokens
   end
+  private :next_token
 
   def self.tokenize(string)
     Lexer.new(string).tokenize
