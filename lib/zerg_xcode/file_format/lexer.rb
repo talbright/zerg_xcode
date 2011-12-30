@@ -56,13 +56,7 @@ class Lexer
     end
 
     while before_the_end?
-      # skip comments
-      if peek(2) == '/*'
-        advance(2)
-        advance while peek(2) != '*/'
-        advance(2)
-        next
-      end
+      skip_comment
       
       case peek
       when /\s/
@@ -108,6 +102,15 @@ class Lexer
     end
   end
   private :next_token
+
+  def skip_comment
+    if peek(2) == '/*'
+      advance(2)
+      advance while peek(2) != '*/'
+      advance(2)
+    end
+  end
+  private :skip_comment
 
   def self.tokenize(string)
     Lexer.new(string).tokenize
