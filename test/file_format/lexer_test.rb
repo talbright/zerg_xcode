@@ -47,8 +47,6 @@ class LexerTest < Test::Unit::TestCase
     
     tokens = ZergXcode::Lexer.tokenize pbxdata
     assert_equal golden_starts, tokens[0, golden_starts.length]
-    #p tokens.length
-    #p tokens[197, 50]
   end
   
   def test_escaped_string
