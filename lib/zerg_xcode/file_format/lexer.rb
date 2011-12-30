@@ -44,26 +44,7 @@ class Lexer
                  '=' => :assign, ';' => :stop, ',' => :comma}[@scan_buffer.take]
         return token
       when '"'
-        # string
-        @scan_buffer.advance
-        token = ''
-        while @scan_buffer.peek != '"'
-          if @scan_buffer.peek == '\\'
-            @scan_buffer.advance
-            case @scan_buffer.peek
-            when 'n', 'r', 't'
-              token << { 'n' => "\n", 't' => "\t", 'r' => "\r" }[@scan_buffer.take]
-            when '"', "'", '\\'
-              token << @scan_buffer.take
-            else
-              raise "Uknown escape sequence \\#{@scan_buffer.peek 20}"
-            end
-          else
-            token << @scan_buffer.take
-          end
-        end
-        @scan_buffer.advance
-        return [:string, token]
+        return parse_string
       else
         return parse_symbol
       end
@@ -79,6 +60,29 @@ class Lexer
     end
   end
   private :skip_comment
+
+  def parse_string
+    @scan_buffer.advance
+    token = ''
+    while @scan_buffer.peek != '"'
+      if @scan_buffer.peek == '\\'
+        @scan_buffer.advance
+        case @scan_buffer.peek
+        when 'n', 'r', 't'
+          token << { 'n' => "\n", 't' => "\t", 'r' => "\r" }[@scan_buffer.take]
+        when '"', "'", '\\'
+          token << @scan_buffer.take
+        else
+          raise "Uknown escape sequence \\#{@scan_buffer.peek 20}"
+        end
+      else
+        token << @scan_buffer.take
+      end
+    end
+    @scan_buffer.advance
+    return [:string, token]
+  end
+  private :parse_string
 
   def parse_symbol
     symbol = ""
