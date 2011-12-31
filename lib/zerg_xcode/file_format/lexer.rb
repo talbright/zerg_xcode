@@ -30,9 +30,9 @@ class Lexer
   def scan_token
     skip_comments_and_whitespace
 
-    return nil unless @scan_buffer.before_the_end?
-    return scan_encoding if @scan_buffer.peek(6) == '// !$*'
-    return scan_string if @scan_buffer.peek == '"'
+    return nil if @scan_buffer.at_end?
+    return scan_encoding if @scan_buffer.at?('// !$*')
+    return scan_string if @scan_buffer.at?('"')
     return scan_simple_token if at_simple_token?
     return scan_symbol
   end
@@ -46,7 +46,7 @@ class Lexer
 
   def scan_comment
     @scan_buffer.advance(2)
-    @scan_buffer.advance while @scan_buffer.peek(2) != '*/'
+    @scan_buffer.advance until @scan_buffer.at?('*/')
     @scan_buffer.advance(2)
   end
   private :scan_comment
@@ -60,7 +60,7 @@ class Lexer
     if @scan_buffer.peek =~ /\s/
       @scan_buffer.advance
       true
-    elsif @scan_buffer.peek(2) == '/*'
+    elsif @scan_buffer.at?('/*')
       scan_comment
       true
     else
@@ -72,8 +72,8 @@ class Lexer
   def scan_string
     @scan_buffer.advance
     token = ''
-    while @scan_buffer.peek != '"'
-      if @scan_buffer.peek == '\\'
+    until @scan_buffer.at?('"')
+      if @scan_buffer.at?('\\')
         @scan_buffer.advance
         case @scan_buffer.peek
         when 'n', 'r', 't'

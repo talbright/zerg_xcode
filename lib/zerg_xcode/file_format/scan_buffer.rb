@@ -10,8 +10,12 @@ class ScanBuffer
     @i == 0
   end
 
-  def before_the_end?
-    @i < @string.length
+  def at_end?
+    @i == @string.length
+  end
+
+  def at?(literal)
+    peek(literal.length) == literal
   end
 
   def unconsumed
