@@ -11,6 +11,8 @@ module ZergXcode
 # Lexer for flattened object graphs stored in .xcodeproj files.
 class Lexer
 
+  SIMPLE_TOKENS = ['(', ')', '{', '}', '=', ';', ',']
+
   def initialize(string)
     @scan_buffer = ScanBuffer.new(string)
   end
@@ -26,20 +28,12 @@ class Lexer
   end
 
   def scan_token
-    scan_comments_and_whitespace
+    skip_comments_and_whitespace
 
     return nil unless @scan_buffer.before_the_end?
     return scan_encoding if @scan_buffer.peek(6) == '// !$*'
     return scan_string if @scan_buffer.peek == '"'
-
-    case @scan_buffer.peek
-    when '(', ')', '{', '}', '=', ';', ','
-      token = {'(' => :begin_array, ')' => :end_array,
-               '{' => :begin_hash, '}' => :end_hash,
-               '=' => :assign, ';' => :stop, ',' => :comma}[@scan_buffer.take]
-      return token
-    end
-
+    return scan_simple_token if at_simple_token?
     return scan_symbol
   end
   private :scan_token
@@ -57,10 +51,10 @@ class Lexer
   end
   private :scan_comment
 
-  def scan_comments_and_whitespace
+  def skip_comments_and_whitespace
     true while scan_comment_or_whitespace
   end
-  private :scan_comments_and_whitespace
+  private :skip_comments_and_whitespace
 
   def scan_comment_or_whitespace
     if @scan_buffer.peek =~ /\s/
@@ -97,6 +91,18 @@ class Lexer
     return [:string, token]
   end
   private :scan_string
+
+  def at_simple_token?
+    SIMPLE_TOKENS.include?(@scan_buffer.peek)
+  end
+  private :at_simple_token?
+
+  def scan_simple_token
+    return {'(' => :begin_array, ')' => :end_array,
+            '{' => :begin_hash, '}' => :end_hash,
+            '=' => :assign, ';' => :stop, ',' => :comma}[@scan_buffer.take]
+  end
+  private :scan_simple_token
 
   def scan_symbol
     symbol = ""
