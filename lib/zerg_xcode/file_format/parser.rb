@@ -13,41 +13,41 @@ module Parser
   def self.parse(project_string)
     tokens = ZergXcode::Lexer.tokenize project_string
     
-    context = [[]]
+    stack = [[]]
     tokens.each do |token|
       case token
       when '('
-        context << Array.new
+        stack << Array.new
       when '{'
-        context << Hash.new
+        stack << Hash.new
       when ')', '}'
-        last_object = context.pop
-        if context.last.kind_of? Array
-          context.last << last_object
-        elsif context.last.kind_of? String
-          hash_key = context.pop
-          context.last[hash_key] = last_object
+        last_object = stack.pop
+        if stack.last.kind_of? Array
+          stack.last << last_object
+        elsif stack.last.kind_of? String
+          hash_key = stack.pop
+          stack.last[hash_key] = last_object
         end
       when '=', ';', ','
         
       when Array
         token_string = token.first
-        if context.last.kind_of? Hash
-          context << token_string
-        elsif context.last.kind_of? Array
-          context.last << token_string
-        elsif context.last.kind_of? String
-          key = context.pop
-          context.last[key] = token_string
+        if stack.last.kind_of? Hash
+          stack << token_string
+        elsif stack.last.kind_of? Array
+          stack.last << token_string
+        elsif stack.last.kind_of? String
+          key = stack.pop
+          stack.last[key] = token_string
         else
-          p context
+          p stack
           raise 'WTFed'
         end
       else
         raise "Unknown token #{token}"
       end
     end
-    return context[0][0]
+    return stack[0][0]
   end  
 end
 
