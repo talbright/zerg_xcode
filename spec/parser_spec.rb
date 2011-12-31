@@ -1,26 +1,22 @@
-# Author:: Victor Costan
-# Copyright:: Copyright (C) 2009 Zergling.Net
-# License:: MIT
-
 require 'zerg_xcode'
-require 'test/unit'
 
-class ParserTest < Test::Unit::TestCase
-  def test_parser
+describe ZergXcode::Parser do
+
+  it "should ???" do
     pbxdata = File.read 'test/fixtures/project.pbxproj'
     proj = ZergXcode::Parser.parse pbxdata
     
-    assert proj.kind_of?(Hash), 'Project structure should be a hash'
-    assert_equal '1', proj['archiveVersion'], 'Archive version'
-    assert_equal '45', proj['objectVersion'], 'Object version'
-    assert_equal '29B97313FDCFA39411CA2CEA', proj['rootObject'], 'Root object'
-    
+    proj.should be_kind_of(Hash)
+    proj['archiveVersion'].should == '1'
+    proj['objectVersion'].should == '45'
+    proj['rootObject'].should == '29B97313FDCFA39411CA2CEA'
+
     golden_file_ref = {
       'isa' => 'PBXBuildFile',
       'fileRef' => '28AD733E0D9D9553002E5188'
     }
-    assert_equal golden_file_ref, proj['objects']['28AD733F0D9D9553002E5188']
-    
+    proj['objects']['28AD733F0D9D9553002E5188'].should == golden_file_ref
+
     golden_file = {
       'isa' => 'PBXFileReference',
       'fileEncoding' => '4',
@@ -28,7 +24,7 @@ class ParserTest < Test::Unit::TestCase
       'path' => 'TestAppViewController.h',
       'sourceTree' => "<group>"
     }
-    assert_equal golden_file, proj['objects']['28D7ACF60DDB3853001CB0EB']
+    proj['objects']['28D7ACF60DDB3853001CB0EB'].should == golden_file
     
     golden_config = {
       'isa' => 'XCBuildConfiguration',
@@ -44,6 +40,7 @@ class ParserTest < Test::Unit::TestCase
       },
       'name' => 'Debug'
     }
-    assert_equal golden_config, proj['objects']['C01FCF4F08A954540054247B']
+    proj['objects']['C01FCF4F08A954540054247B'].should == golden_config
   end
+
 end
