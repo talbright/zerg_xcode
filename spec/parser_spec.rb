@@ -13,8 +13,8 @@ describe ZergXcode::Parser do
     it {should == ["2342", "789"]}
   end
 
-  context "when parsing '{ foo = ( 42, \"seven and nine\" ) }'" do
-    subject {ZergXcode::Parser.parse("{ foo = ( 42, \"seven and nine\" ) }")}
+  context "when parsing '{ foo = ( 42, \"seven and nine\" ); }'" do
+    subject {ZergXcode::Parser.parse("{ foo = ( 42, \"seven and nine\" ); }")}
     it {should be_a(Hash)}
     it {should == {'foo' => ['42', 'seven and nine']}}
   end
