@@ -26,12 +26,8 @@ class Lexer
   end
 
   def tokenize
-    tokens = []
-    while true
-      token = scan_token
-      break unless token
-      tokens << token
-    end
+    tokens, token = [], nil
+    tokens << token until (token = scan_token).nil?
     tokens
   end
 
@@ -45,12 +41,6 @@ class Lexer
     return scan_symbol
   end
   private :scan_token
-
-  def scan_encoding
-    encoding_match = @scan_buffer.match_and_advance(/^\/\/ \!\$\*(.*?)\*\$\!/)
-    return [:encoding, encoding_match[1]]
-  end
-  private :scan_encoding
 
   def scan_comment
     @scan_buffer.advance(2)
@@ -76,6 +66,12 @@ class Lexer
     end
   end
   private :scan_comment_or_whitespace
+
+  def scan_encoding
+    encoding_match = @scan_buffer.match_and_advance(/^\/\/ \!\$\*(.*?)\*\$\!/)
+    return [:encoding, encoding_match[1]]
+  end
+  private :scan_encoding
 
   def scan_string
     @scan_buffer.advance
