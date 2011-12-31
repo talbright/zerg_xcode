@@ -4,6 +4,9 @@ RSpec::Matchers.define :produce_token do |expected|
   match do |actual|
     actual.send(:scan_token) == expected
   end
+  failure_message_for_should do |actual|
+    "expected Lexer to leave #{expected.dump} unconsumed instead of #{unconsumed(actual).dump}"
+  end
 end
 
 RSpec::Matchers.define :leave_unconsumed do |expected|
@@ -31,6 +34,12 @@ describe ZergXcode::Lexer do
     subject{ZergXcode::Lexer.new("\"hello\"{")}
     it {should produce_token([:string, "hello"])}
     it {should leave_unconsumed("{")}
+  end
+
+  context "when scanning '\\\"$(SRCROOT)/build/Debug-iphonesimulator\\\"'" do
+    subject{ZergXcode::Lexer.new("\"\\\"$(SRCROOT)/build/Debug-iphonesimulator\\\"\" {")}
+    it {should produce_token([:string, "\"$(SRCROOT)/build/Debug-iphonesimulator\""])}
+    it {should leave_unconsumed(" {")}
   end
 
   it "produces expected results for our fixture" do
@@ -74,11 +83,5 @@ describe ZergXcode::Lexer do
     
     tokens = ZergXcode::Lexer.tokenize pbxdata
     tokens[0, golden_starts.length].should == golden_starts
-  end
-  
-  it "parses escaped strings correctly" do
-    pbxdata = File.read 'test/fixtures/ZergSupport.xcodeproj/project.pbxproj'
-    tokens = ZergXcode::Lexer.tokenize pbxdata
-    tokens.should include([:string, "\"$(SRCROOT)/build/Debug-iphonesimulator\""])
   end
 end
