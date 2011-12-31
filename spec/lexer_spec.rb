@@ -54,6 +54,54 @@ describe ZergXcode::Lexer do
     it {should leave_unconsumed("")}
   end
 
+  context "when scanning '(x'" do
+    subject {ZergXcode::Lexer.new("(x")}
+    it {should produce_token(:begin_array)}
+    it {should leave_unconsumed("x")}
+  end
+
+  context "when scanning ')x'" do
+    subject {ZergXcode::Lexer.new(")x")}
+    it {should produce_token(:end_array)}
+    it {should leave_unconsumed("x")}
+  end
+
+  context "when scanning '{x'" do
+    subject {ZergXcode::Lexer.new("{x")}
+    it {should produce_token(:begin_hash)}
+    it {should leave_unconsumed("x")}
+  end
+
+  context "when scanning '}x'" do
+    subject {ZergXcode::Lexer.new("}x")}
+    it {should produce_token(:end_hash)}
+    it {should leave_unconsumed("x")}
+  end
+
+  context "when scanning '=x'" do
+    subject {ZergXcode::Lexer.new("=x")}
+    it {should produce_token(:assign)}
+    it {should leave_unconsumed("x")}
+  end
+
+  context "when scanning ';x'" do
+    subject {ZergXcode::Lexer.new(";x")}
+    it {should produce_token(:stop)}
+    it {should leave_unconsumed("x")}
+  end
+
+  context "when scanning ',x'" do
+    subject {ZergXcode::Lexer.new(",x")}
+    it {should produce_token(:comma)}
+    it {should leave_unconsumed("x")}
+  end
+
+  context "when scanning 'archiveVersion ='" do
+    subject {ZergXcode::Lexer.new("archiveVersion =")}
+    it {should produce_token([:symbol, "archiveVersion"])}
+    it {should leave_unconsumed(" =")}
+  end
+
   it "produces expected results for our fixture" do
     pbxdata = File.read 'test/fixtures/project.pbxproj'
     golden_starts = [[:encoding, "UTF8"],
