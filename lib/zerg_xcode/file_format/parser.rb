@@ -17,11 +17,11 @@ module Parser
     last_token = nil
     tokens.each do |token|
       case token
-      when :begin_array
+      when '('
         context << Array.new
-      when :begin_hash
+      when '{'
         context << Hash.new
-      when :end_array, :end_hash
+      when ')', '}'
         last_object = context.pop
         if context.last.kind_of? Array
           context.last << last_object
@@ -29,7 +29,7 @@ module Parser
           hash_key = context.pop
           context.last[hash_key] = last_object
         end
-      when :assign, :stop, :comma
+      when '=', ';', ','
         
       when Array
         case token.first
@@ -54,6 +54,6 @@ module Parser
     end
     return context[0][0]
   end  
-end  # module ZergXcode::Parser
+end
 
-end  # namespace ZergXcode
+end

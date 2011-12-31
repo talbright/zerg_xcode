@@ -38,7 +38,7 @@ describe ZergXcode::Lexer do
 
   context "when scanning ' /* comment 1  */\\t\\n/* comment 2 */  ={'" do
     subject {ZergXcode::Lexer.new(" /* comment 1  */\t\n/* comment 2 */  ={")}
-    it {should produce_token(:assign)}
+    it {should produce_token('=')}
     it {should leave_unconsumed("{")}
   end
 
@@ -50,43 +50,43 @@ describe ZergXcode::Lexer do
 
   context "when scanning '(x'" do
     subject {ZergXcode::Lexer.new("(x")}
-    it {should produce_token(:begin_array)}
+    it {should produce_token('(')}
     it {should leave_unconsumed("x")}
   end
 
   context "when scanning ')x'" do
     subject {ZergXcode::Lexer.new(")x")}
-    it {should produce_token(:end_array)}
+    it {should produce_token(')')}
     it {should leave_unconsumed("x")}
   end
 
   context "when scanning '{x'" do
     subject {ZergXcode::Lexer.new("{x")}
-    it {should produce_token(:begin_hash)}
+    it {should produce_token('{')}
     it {should leave_unconsumed("x")}
   end
 
   context "when scanning '}x'" do
     subject {ZergXcode::Lexer.new("}x")}
-    it {should produce_token(:end_hash)}
+    it {should produce_token('}')}
     it {should leave_unconsumed("x")}
   end
 
   context "when scanning '=x'" do
     subject {ZergXcode::Lexer.new("=x")}
-    it {should produce_token(:assign)}
+    it {should produce_token('=')}
     it {should leave_unconsumed("x")}
   end
 
   context "when scanning ';x'" do
     subject {ZergXcode::Lexer.new(";x")}
-    it {should produce_token(:stop)}
+    it {should produce_token(';')}
     it {should leave_unconsumed("x")}
   end
 
   context "when scanning ',x'" do
     subject {ZergXcode::Lexer.new(",x")}
-    it {should produce_token(:comma)}
+    it {should produce_token(',')}
     it {should leave_unconsumed("x")}
   end
 
@@ -98,14 +98,14 @@ describe ZergXcode::Lexer do
 
   context "when scanning '{ foo = \"hello\", bar };'" do
     subject {ZergXcode::Lexer.tokenize("{ foo = \"hello\", bar };")}
-    it {should == [:begin_hash,
+    it {should == ['{',
                    [:symbol, "foo"],
-                   :assign,
+                   '=',
                    [:string, "hello"],
-                   :comma,
+                   ',',
                    [:symbol, "bar"],
-                   :end_hash,
-                   :stop]}
+                   '}',
+                   ';']}
   end
 
 end
