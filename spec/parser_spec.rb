@@ -19,6 +19,12 @@ describe ZergXcode::Parser do
     it {should == {'foo' => ['42', 'seven and nine']}}
   end
 
+  context "when parsing '( { foo = 42; bar = 79; }, 42, )'" do
+    subject {ZergXcode::Parser.parse("( { foo = 42; bar = 79; }, 42, )")}
+    it {should be_an(Array)}
+    it {should == [{'foo' => '42', 'bar' => '79'}, '42']}
+  end
+
   it "should ???" do
     pbxdata = File.read 'test/fixtures/project.pbxproj'
     proj = ZergXcode::Parser.parse pbxdata
