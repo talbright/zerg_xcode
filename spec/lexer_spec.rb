@@ -92,18 +92,18 @@ describe ZergXcode::Lexer do
 
   context "when scanning 'archiveVersion ='" do
     subject {ZergXcode::Lexer.new("archiveVersion =")}
-    it {should produce_token([:symbol, "archiveVersion"])}
+    it {should produce_token([:string, "archiveVersion"])}
     it {should leave_unconsumed(" =")}
   end
 
   context "when scanning '{ foo = \"hello\", bar };'" do
     subject {ZergXcode::Lexer.tokenize("{ foo = \"hello\", bar };")}
     it {should == ['{',
-                   [:symbol, "foo"],
+                   [:string, "foo"],
                    '=',
                    [:string, "hello"],
                    ',',
-                   [:symbol, "bar"],
+                   [:string, "bar"],
                    '}',
                    ';']}
   end

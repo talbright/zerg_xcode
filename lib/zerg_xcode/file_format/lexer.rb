@@ -28,9 +28,9 @@ class Lexer
 
     return nil if at_end_of_buffer?
     return scan_encoding if at_encoding?
-    return scan_string if at_string?
     return scan_simple_token if at_simple_token?
-    return scan_symbol
+    return scan_quoted_string if at_quoted_string?
+    return scan_bare_string
   end
   private :scan_token
 
@@ -75,12 +75,12 @@ class Lexer
   end
   private :scan_encoding
 
-  def at_string?
+  def at_quoted_string?
     @scan_buffer.at?('"')
   end
-  private :at_string?
+  private :at_quoted_string?
 
-  def scan_string
+  def scan_quoted_string
     @scan_buffer.advance
     token = ''
     until @scan_buffer.at?('"')
@@ -101,7 +101,7 @@ class Lexer
     @scan_buffer.advance
     return [:string, token]
   end
-  private :scan_string
+  private :scan_quoted_string
 
   def at_simple_token?
     SIMPLE_TOKENS.include?(@scan_buffer.peek)
@@ -113,12 +113,12 @@ class Lexer
   end
   private :scan_simple_token
 
-  def scan_symbol
-    symbol = ""
-    symbol << @scan_buffer.take while @scan_buffer.peek(1) =~ /[^\s\t\r\n\f(){}=;,]/
-    return [:symbol, symbol]
+  def scan_bare_string
+    text = ""
+    text << @scan_buffer.take while @scan_buffer.peek(1) =~ /[^\s\t\r\n\f(){}=;,]/
+    return [:string, text]
   end
-  private :scan_symbol
+  private :scan_bare_string
 
   def self.tokenize(string)
     Lexer.new(string).tokenize
