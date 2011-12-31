@@ -42,30 +42,30 @@ class Lexer
   end
   private :scan_token
 
-  def scan_comment
+  def skip_comment
     @scan_buffer.advance(2)
     @scan_buffer.advance until @scan_buffer.at?('*/')
     @scan_buffer.advance(2)
   end
-  private :scan_comment
+  private :skip_comment
 
   def skip_comments_and_whitespace
-    true while scan_comment_or_whitespace
+    true while skip_comment_or_whitespace
   end
   private :skip_comments_and_whitespace
 
-  def scan_comment_or_whitespace
+  def skip_comment_or_whitespace
     if @scan_buffer.peek =~ /\s/
       @scan_buffer.advance
       true
     elsif @scan_buffer.at?('/*')
-      scan_comment
+      skip_comment
       true
     else
       false
     end
   end
-  private :scan_comment_or_whitespace
+  private :skip_comment_or_whitespace
 
   def scan_encoding
     encoding_match = @scan_buffer.match_and_advance(/^\/\/ \!\$\*(.*?)\*\$\!/)
