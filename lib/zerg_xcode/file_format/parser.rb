@@ -31,21 +31,18 @@ module Parser
       when '=', ';', ','
         
       when Array
-        case token.first
-        when :string
-          token_string = token.last
-          if context.last.kind_of? Hash
-            context << token_string
-          elsif context.last.kind_of? Array
-            context.last << token_string
-          elsif context.last.kind_of? String
-            key = context.pop
-            context.last[key] = token_string
-          else
-            p context
-            raise 'WTFed'
-          end
-        end        
+        token_string = token.first
+        if context.last.kind_of? Hash
+          context << token_string
+        elsif context.last.kind_of? Array
+          context.last << token_string
+        elsif context.last.kind_of? String
+          key = context.pop
+          context.last[key] = token_string
+        else
+          p context
+          raise 'WTFed'
+        end
       else
         raise "Unknown token #{token}"
       end

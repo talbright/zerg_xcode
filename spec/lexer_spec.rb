@@ -32,7 +32,7 @@ describe ZergXcode::Lexer do
   
   context "when scanning '\"hello \\\"\\r\\n\\t\\\\\\'$(SRCROOT)\\\"\"'" do
     subject {ZergXcode::Lexer.new("\"hello \\\"\\r\\n\\t\\\\\\'$(SRCROOT)\\\"\" {")}
-    it {should produce_token([:string, "hello \"\r\n\t\\'$(SRCROOT)\""])}
+    it {should produce_token(["hello \"\r\n\t\\'$(SRCROOT)\""])}
     it {should leave_unconsumed(" {")}
   end
 
@@ -92,18 +92,18 @@ describe ZergXcode::Lexer do
 
   context "when scanning 'archiveVersion ='" do
     subject {ZergXcode::Lexer.new("archiveVersion =")}
-    it {should produce_token([:string, "archiveVersion"])}
+    it {should produce_token(["archiveVersion"])}
     it {should leave_unconsumed(" =")}
   end
 
   context "when scanning '{ foo = \"hello\", bar };'" do
     subject {ZergXcode::Lexer.tokenize("{ foo = \"hello\", bar };")}
     it {should == ['{',
-                   [:string, "foo"],
+                   ["foo"],
                    '=',
-                   [:string, "hello"],
+                   ["hello"],
                    ',',
-                   [:string, "bar"],
+                   ["bar"],
                    '}',
                    ';']}
   end

@@ -100,7 +100,7 @@ class Lexer
       end
     end
     @scan_buffer.advance
-    return [:string, token]
+    return [token]
   end
   private :scan_quoted_string
 
@@ -117,7 +117,7 @@ class Lexer
   def scan_bare_string
     text = ""
     text << @scan_buffer.take while @scan_buffer.peek(1) =~ /[^\s\t\r\n\f(){}=;,]/
-    return [:string, text]
+    return [text]
   end
   private :scan_bare_string
 
