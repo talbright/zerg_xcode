@@ -25,21 +25,33 @@ end
 describe ZergXcode::Lexer do
 
   context "when scanning '// !$*UTF8*$!\\n{'" do
-    subject{ZergXcode::Lexer.new("// !$*UTF8*$!\n{")}
+    subject {ZergXcode::Lexer.new("// !$*UTF8*$!\n{")}
     it {should produce_token([:encoding, "UTF8"])}
     it {should leave_unconsumed("\n{")}
   end
   
   context "when scanning '\"hello\"{'" do
-    subject{ZergXcode::Lexer.new("\"hello\"{")}
+    subject {ZergXcode::Lexer.new("\"hello\"{")}
     it {should produce_token([:string, "hello"])}
     it {should leave_unconsumed("{")}
   end
 
   context "when scanning '\\\"$(SRCROOT)/build/Debug-iphonesimulator\\\"'" do
-    subject{ZergXcode::Lexer.new("\"\\\"$(SRCROOT)/build/Debug-iphonesimulator\\\"\" {")}
+    subject {ZergXcode::Lexer.new("\"\\\"$(SRCROOT)/build/Debug-iphonesimulator\\\"\" {")}
     it {should produce_token([:string, "\"$(SRCROOT)/build/Debug-iphonesimulator\""])}
     it {should leave_unconsumed(" {")}
+  end
+
+  context "when scanning ' /* comment 1  */\\t\\n/* comment 2 */  ={'" do
+    subject {ZergXcode::Lexer.new(" /* comment 1  */\t\n/* comment 2 */  ={")}
+    it {should produce_token(:assign)}
+    it {should leave_unconsumed("{")}
+  end
+
+  context "when scanning ' \\t/* hello */\\n\\t'" do
+    subject {ZergXcode::Lexer.new(" \t/* hello */\n\t")}
+    it {should produce_token(nil)}
+    it {should leave_unconsumed("")}
   end
 
   it "produces expected results for our fixture" do
