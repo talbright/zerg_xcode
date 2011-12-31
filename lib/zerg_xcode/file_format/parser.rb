@@ -32,7 +32,6 @@ module Parser
         
       when Array
         case token.first
-        when :encoding
         when :string
           token_string = token.last
           if context.last.kind_of? Hash

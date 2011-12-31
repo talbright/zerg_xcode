@@ -26,8 +26,8 @@ describe ZergXcode::Lexer do
 
   context "when scanning '// !$*UTF8*$!\\n{'" do
     subject {ZergXcode::Lexer.new("// !$*UTF8*$!\n{")}
-    it {should produce_token([:encoding, "UTF8"])}
-    it {should leave_unconsumed("\n{")}
+    it {should produce_token('{')}
+    it {should leave_unconsumed("")}
   end
   
   context "when scanning '\"hello \\\"\\r\\n\\t\\\\\\'$(SRCROOT)\\\"\"'" do

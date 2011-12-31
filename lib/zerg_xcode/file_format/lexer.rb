@@ -24,23 +24,25 @@ class Lexer
   end
 
   def scan_token
-    skip_comments_and_whitespace
+    skip_encodings_comments_and_whitespace
 
     return nil if at_end_of_buffer?
-    return scan_encoding if at_encoding?
     return scan_simple_token if at_simple_token?
     return scan_quoted_string if at_quoted_string?
     return scan_bare_string
   end
   private :scan_token
 
-  def skip_comments_and_whitespace
-    nil while skip_comment_or_whitespace
+  def skip_encodings_comments_and_whitespace
+    nil while skip_encoding_comment_or_whitespace
   end
-  private :skip_comments_and_whitespace
+  private :skip_encodings_comments_and_whitespace
 
-  def skip_comment_or_whitespace
-    if @scan_buffer.peek =~ /\s/
+  def skip_encoding_comment_or_whitespace
+    if at_encoding?
+      skip_encoding
+      true
+    elsif @scan_buffer.peek =~ /\s/
       @scan_buffer.advance
       true
     elsif @scan_buffer.at?('/*')
@@ -50,7 +52,7 @@ class Lexer
       false
     end
   end
-  private :skip_comment_or_whitespace
+  private :skip_encoding_comment_or_whitespace
 
   def skip_comment
     @scan_buffer.advance(2)
@@ -69,11 +71,10 @@ class Lexer
   end
   private :at_encoding?
 
-  def scan_encoding
-    encoding_match = @scan_buffer.match_and_advance(/^\/\/ \!\$\*(.*?)\*\$\!/)
-    return [:encoding, encoding_match[1]]
+  def skip_encoding
+    @scan_buffer.match_and_advance(/^\/\/ \!\$\*(.*?)\*\$\!/)
   end
-  private :scan_encoding
+  private :skip_encoding
 
   def at_quoted_string?
     @scan_buffer.at?('"')
