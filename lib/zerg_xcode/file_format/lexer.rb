@@ -26,25 +26,21 @@ class Lexer
   end
 
   def scan_token
-    return scan_encoding if @scan_buffer.peek(6) == '// !$*'
+    scan_comments_and_whitespace
 
-    while @scan_buffer.before_the_end?
-      scan_comment
-      
-      case @scan_buffer.peek
-      when /\s/
-        @scan_buffer.advance
-      when '(', ')', '{', '}', '=', ';', ','
-        token = {'(' => :begin_array, ')' => :end_array,
-                 '{' => :begin_hash, '}' => :end_hash,
-                 '=' => :assign, ';' => :stop, ',' => :comma}[@scan_buffer.take]
-        return token
-      when '"'
-        return scan_string
-      else
-        return scan_symbol
-      end
+    return nil unless @scan_buffer.before_the_end?
+    return scan_encoding if @scan_buffer.peek(6) == '// !$*'
+    return scan_string if @scan_buffer.peek == '"'
+
+    case @scan_buffer.peek
+    when '(', ')', '{', '}', '=', ';', ','
+      token = {'(' => :begin_array, ')' => :end_array,
+               '{' => :begin_hash, '}' => :end_hash,
+               '=' => :assign, ';' => :stop, ',' => :comma}[@scan_buffer.take]
+      return token
     end
+
+    return scan_symbol
   end
   private :scan_token
 
@@ -55,13 +51,29 @@ class Lexer
   private :scan_encoding
 
   def scan_comment
-    if @scan_buffer.peek(2) == '/*'
-      @scan_buffer.advance(2)
-      @scan_buffer.advance while @scan_buffer.peek(2) != '*/'
-      @scan_buffer.advance(2)
-    end
+    @scan_buffer.advance(2)
+    @scan_buffer.advance while @scan_buffer.peek(2) != '*/'
+    @scan_buffer.advance(2)
   end
   private :scan_comment
+
+  def scan_comments_and_whitespace
+    true while scan_comment_or_whitespace
+  end
+  private :scan_comments_and_whitespace
+
+  def scan_comment_or_whitespace
+    if @scan_buffer.peek =~ /\s/
+      @scan_buffer.advance
+      true
+    elsif @scan_buffer.peek(2) == '/*'
+      scan_comment
+      true
+    else
+      false
+    end
+  end
+  private :scan_comment_or_whitespace
 
   def scan_string
     @scan_buffer.advance
