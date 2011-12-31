@@ -1,12 +1,8 @@
-# Author:: Victor Costan
-# Copyright:: Copyright (C) 2009 Zergling.Net
-# License:: MIT
-
 require 'zerg_xcode'
-require 'test/unit'
 
-class LexerTest < Test::Unit::TestCase
-  def test_lexer
+describe ZergXcode::Lexer do
+
+  it "produces expected results for our fixture" do
     pbxdata = File.read 'test/fixtures/project.pbxproj'
     golden_starts = [[:encoding, "UTF8"],
                      :begin_hash,
@@ -46,13 +42,12 @@ class LexerTest < Test::Unit::TestCase
                          :stop]
     
     tokens = ZergXcode::Lexer.tokenize pbxdata
-    assert_equal golden_starts, tokens[0, golden_starts.length]
+    tokens[0, golden_starts.length].should == golden_starts
   end
   
-  def test_escaped_string
+  it "parses escaped strings correctly" do
     pbxdata = File.read 'test/fixtures/ZergSupport.xcodeproj/project.pbxproj'
     tokens = ZergXcode::Lexer.tokenize pbxdata
-    assert tokens.include?([:string,
-                            "\"$(SRCROOT)/build/Debug-iphonesimulator\""])
+    tokens.should include([:string, "\"$(SRCROOT)/build/Debug-iphonesimulator\""])
   end
 end
