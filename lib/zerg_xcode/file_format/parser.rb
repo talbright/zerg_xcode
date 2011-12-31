@@ -14,7 +14,6 @@ module Parser
     tokens = ZergXcode::Lexer.tokenize project_string
     
     context = [[]]
-    last_token = nil
     tokens.each do |token|
       case token
       when '('
