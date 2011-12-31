@@ -1,6 +1,17 @@
 require 'zerg_xcode'
 
 describe ZergXcode::Parser do
+  context "when parsing '{ archiveVersion = 1 /* foo */; objectVersion = 45; }'" do
+    subject {ZergXcode::Parser.parse("{ archiveVersion = 1 /* foo */; objectVersion = 45; }")}
+    it {should be_a(Hash)}
+    it {should == {'archiveVersion' => '1', 'objectVersion' => '45'}}
+  end
+
+  context "when parsing '( 2342 /* foo */, 789 /* bar */, )'" do
+    subject {ZergXcode::Parser.parse("( 2342 /* foo */, 789 /* bar */, )")}
+    it {should be_an(Array)}
+    it {should == ["2342", "789"]}
+  end
 
   it "should ???" do
     pbxdata = File.read 'test/fixtures/project.pbxproj'
