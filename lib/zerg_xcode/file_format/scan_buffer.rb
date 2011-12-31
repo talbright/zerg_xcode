@@ -14,6 +14,10 @@ class ScanBuffer
     @i < @string.length
   end
 
+  def unconsumed
+    @string[@i..-1]
+  end
+
   def advance(n=1)
     @i += n
   end

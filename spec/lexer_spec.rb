@@ -1,6 +1,32 @@
 require 'zerg_xcode'
 
+RSpec::Matchers.define :produce_token do |expected|
+  match do |actual|
+    actual.send(:scan_token) == expected
+  end
+end
+
+RSpec::Matchers.define :leave_unconsumed do |expected|
+  def unconsumed(actual)
+    actual.instance_variable_get(:@scan_buffer).unconsumed
+  end
+  match do |actual|
+    actual.send(:scan_token)
+    unconsumed(actual) == expected
+  end
+  failure_message_for_should do |actual|
+    "expected Lexer to leave #{expected.dump} unconsumed instead of #{unconsumed(actual).dump}"
+  end
+end
+
 describe ZergXcode::Lexer do
+
+  context "when scanning '// !$*UTF8*$!\\n{'" do
+    subject{ZergXcode::Lexer.new("// !$*UTF8*$!\n{")}
+
+    it {should produce_token([:encoding, "UTF8"])}
+    it {should leave_unconsumed("\n{")}
+  end
 
   it "produces expected results for our fixture" do
     pbxdata = File.read 'test/fixtures/project.pbxproj'
