@@ -23,9 +23,14 @@ describe ZergXcode::Lexer do
 
   context "when scanning '// !$*UTF8*$!\\n{'" do
     subject{ZergXcode::Lexer.new("// !$*UTF8*$!\n{")}
-
     it {should produce_token([:encoding, "UTF8"])}
     it {should leave_unconsumed("\n{")}
+  end
+  
+  context "when scanning '\"hello\"{'" do
+    subject{ZergXcode::Lexer.new("\"hello\"{")}
+    it {should produce_token([:string, "hello"])}
+    it {should leave_unconsumed("{")}
   end
 
   it "produces expected results for our fixture" do

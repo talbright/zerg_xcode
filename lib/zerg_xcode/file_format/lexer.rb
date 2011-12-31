@@ -26,7 +26,7 @@ class Lexer
   end
 
   def scan_token
-    return scan_encoding if @scan_buffer.at_beginning?
+    return scan_encoding if @scan_buffer.peek(6) == '// !$*'
 
     while @scan_buffer.before_the_end?
       scan_comment
@@ -50,7 +50,6 @@ class Lexer
 
   def scan_encoding
     encoding_match = @scan_buffer.match_and_advance(/^\/\/ \!\$\*(.*?)\*\$\!/)
-    raise "No encoding - #{peek(20)}" unless encoding_match
     return [:encoding, encoding_match[1]]
   end
   private :scan_encoding
