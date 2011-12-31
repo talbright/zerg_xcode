@@ -28,8 +28,6 @@ module Parser
           hash_key = stack.pop
           stack.last[hash_key] = last_object
         end
-      when '=', ';', ','
-        
       when Array
         token_string = token.first
         if stack.last.kind_of? Hash
@@ -43,6 +41,7 @@ module Parser
           p stack
           raise 'WTFed'
         end
+      when '=', ';', ','
       else
         raise "Unknown token #{token}"
       end
