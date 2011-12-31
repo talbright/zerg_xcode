@@ -1,6 +1,6 @@
 .loadpath
 .rvmrc
-
+.rspec
 coverage
 rdoc
 doc
