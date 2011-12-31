@@ -11,7 +11,15 @@ module ZergXcode
 # Lexer for flattened object graphs stored in .xcodeproj files.
 class Lexer
 
-  SIMPLE_TOKENS = ['(', ')', '{', '}', '=', ';', ',']
+  SIMPLE_TOKENS = {
+    '(' => :begin_array,
+    ')' => :end_array,
+    '{' => :begin_hash,
+    '}' => :end_hash,
+    '=' => :assign,
+    ';' => :stop,
+    ',' => :comma
+  }
 
   def initialize(string)
     @scan_buffer = ScanBuffer.new(string)
@@ -93,14 +101,12 @@ class Lexer
   private :scan_string
 
   def at_simple_token?
-    SIMPLE_TOKENS.include?(@scan_buffer.peek)
+    SIMPLE_TOKENS.keys.include?(@scan_buffer.peek)
   end
   private :at_simple_token?
 
   def scan_simple_token
-    return {'(' => :begin_array, ')' => :end_array,
-            '{' => :begin_hash, '}' => :end_hash,
-            '=' => :assign, ';' => :stop, ',' => :comma}[@scan_buffer.take]
+    SIMPLE_TOKENS[@scan_buffer.take]
   end
   private :scan_simple_token
 
