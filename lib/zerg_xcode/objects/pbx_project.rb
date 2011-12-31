@@ -27,7 +27,7 @@ class PBXProject < ZergXcode::XcodeObject
   
   # The root path of the project.
   def root_path
-    ZergXcode::Paths.project_root_at source_filename
+    ZergXcode.project_root_at source_filename
   end
   
   # All the files referenced by the project.

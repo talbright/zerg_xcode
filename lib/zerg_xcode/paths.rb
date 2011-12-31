@@ -11,7 +11,7 @@ module ZergXcode
 # Finds the .pbxproj file inside an Xcode project.
 module Paths
   # The most likely project file name for the given path. 
-  def self.project_file_at(base_path)
+  def project_file_at(base_path)
     return base_path if File.exist?(base_path) and File.file?(base_path)
     pbxfile = 'project.pbxproj'
     
@@ -48,7 +48,7 @@ module Paths
   end
   
   # The most likely project root dir for the given path.
-  def self.project_root_at(base_path)
+  def project_root_at(base_path)
     file = project_file_at base_path
     File.dirname File.dirname(file)
   end

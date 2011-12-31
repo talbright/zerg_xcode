@@ -26,3 +26,7 @@ require 'zerg_xcode/plugins/core/core.rb'
 
 require 'zerg_xcode/paths.rb'
 require 'zerg_xcode/shortcuts.rb'
+
+module ZergXcode
+  extend ZergXcode::Paths
+end

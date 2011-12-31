@@ -9,7 +9,7 @@
 module ZergXcode
   # Reads an Xcode project from the filesystem.
   def self.load(path)
-    file = ZergXcode::Paths.project_file_at path
+    file = ZergXcode.project_file_at path
     pbx_contents = File.read file
     project = Archiver.unarchive pbx_contents
     project.source_filename = file
@@ -18,7 +18,7 @@ module ZergXcode
   
   # Dumps an Xcode project to the filesystem.
   def self.dump(project, path)
-    file = ZergXcode::Paths.project_file_at path
+    file = ZergXcode.project_file_at path
     pbx_contents = Archiver.archive project
     File.open(file, 'w') { |f| f.write pbx_contents }
   end
