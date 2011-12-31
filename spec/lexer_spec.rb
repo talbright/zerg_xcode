@@ -30,15 +30,9 @@ describe ZergXcode::Lexer do
     it {should leave_unconsumed("\n{")}
   end
   
-  context "when scanning '\"hello\"{'" do
-    subject {ZergXcode::Lexer.new("\"hello\"{")}
-    it {should produce_token([:string, "hello"])}
-    it {should leave_unconsumed("{")}
-  end
-
-  context "when scanning '\\\"$(SRCROOT)/build/Debug-iphonesimulator\\\"'" do
-    subject {ZergXcode::Lexer.new("\"\\\"$(SRCROOT)/build/Debug-iphonesimulator\\\"\" {")}
-    it {should produce_token([:string, "\"$(SRCROOT)/build/Debug-iphonesimulator\""])}
+  context "when scanning '\"hello \\\"\\r\\n\\t\\\\\\'$(SRCROOT)\\\"\"'" do
+    subject {ZergXcode::Lexer.new("\"hello \\\"\\r\\n\\t\\\\\\'$(SRCROOT)\\\"\" {")}
+    it {should produce_token([:string, "hello \"\r\n\t\\'$(SRCROOT)\""])}
     it {should leave_unconsumed(" {")}
   end
 
@@ -102,46 +96,16 @@ describe ZergXcode::Lexer do
     it {should leave_unconsumed(" =")}
   end
 
-  it "produces expected results for our fixture" do
-    pbxdata = File.read 'test/fixtures/project.pbxproj'
-    golden_starts = [[:encoding, "UTF8"],
-                     :begin_hash,
-                       [:symbol, "archiveVersion"], :assign, [:symbol, "1"],
-                       :stop,
-                       [:symbol, "classes"], :assign, :begin_hash, :end_hash,
-                       :stop,
-                       [:symbol, "objectVersion"], :assign, [:symbol, "45"],
-                       :stop,
-                       [:symbol, "objects"], :assign, :begin_hash,
-                         [:symbol, "1D3623260D0F684500981E51"], :assign,
-                         :begin_hash,
-                           [:symbol, "isa"], :assign, [:symbol, "PBXBuildFile"],
-                           :stop,
-                           [:symbol, "fileRef"], :assign,
-                             [:symbol, "1D3623250D0F684500981E51"],
-                           :stop,
-                         :end_hash,
-                         :stop,
-                         [:symbol, "1D60589B0D05DD56006BFB54"], :assign,
-                         :begin_hash,
-                           [:symbol, "isa"], :assign, [:symbol, "PBXBuildFile"],
-                           :stop,
-                           [:symbol, "fileRef"], :assign,
-                             [:symbol, "29B97316FDCFA39411CA2CEA"],
-                           :stop,
-                         :end_hash,
-                         :stop,
-                         [:symbol, "1D60589F0D05DD5A006BFB54"], :assign,
-                         :begin_hash,
-                           [:symbol, "isa"], :assign, [:symbol, "PBXBuildFile"],
-                           :stop,
-                           [:symbol, "fileRef"], :assign,
-                             [:symbol, "1D30AB110D05D00D00671497"],
-                           :stop,
-                         :end_hash,
-                         :stop]
-    
-    tokens = ZergXcode::Lexer.tokenize pbxdata
-    tokens[0, golden_starts.length].should == golden_starts
+  context "when scanning '{ foo = \"hello\", bar };'" do
+    subject {ZergXcode::Lexer.tokenize("{ foo = \"hello\", bar };")}
+    it {should == [:begin_hash,
+                   [:symbol, "foo"],
+                   :assign,
+                   [:string, "hello"],
+                   :comma,
+                   [:symbol, "bar"],
+                   :end_hash,
+                   :stop]}
   end
+
 end
