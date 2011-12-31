@@ -34,23 +34,16 @@ class Lexer
   def scan_token
     skip_comments_and_whitespace
 
-    return nil if @scan_buffer.at_end?
-    return scan_encoding if @scan_buffer.at?('// !$*')
-    return scan_string if @scan_buffer.at?('"')
+    return nil if at_end_of_buffer?
+    return scan_encoding if at_encoding?
+    return scan_string if at_string?
     return scan_simple_token if at_simple_token?
     return scan_symbol
   end
   private :scan_token
 
-  def skip_comment
-    @scan_buffer.advance(2)
-    @scan_buffer.advance until @scan_buffer.at?('*/')
-    @scan_buffer.advance(2)
-  end
-  private :skip_comment
-
   def skip_comments_and_whitespace
-    true while skip_comment_or_whitespace
+    nil while skip_comment_or_whitespace
   end
   private :skip_comments_and_whitespace
 
@@ -67,11 +60,33 @@ class Lexer
   end
   private :skip_comment_or_whitespace
 
+  def skip_comment
+    @scan_buffer.advance(2)
+    @scan_buffer.advance until @scan_buffer.at?('*/')
+    @scan_buffer.advance(2)
+  end
+  private :skip_comment
+
+  def at_end_of_buffer?
+    @scan_buffer.at_end?
+  end
+  private :at_end_of_buffer?
+
+  def at_encoding?
+    @scan_buffer.at?('// !$*')
+  end
+  private :at_encoding?
+
   def scan_encoding
     encoding_match = @scan_buffer.match_and_advance(/^\/\/ \!\$\*(.*?)\*\$\!/)
     return [:encoding, encoding_match[1]]
   end
   private :scan_encoding
+
+  def at_string?
+    @scan_buffer.at?('"')
+  end
+  private :at_string?
 
   def scan_string
     @scan_buffer.advance
