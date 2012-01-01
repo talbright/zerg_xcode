@@ -44,7 +44,7 @@ describe ZergXcode::Archiver do
   end
 
   context 'when unarchiving' do
-    let(:pbxdata) {File.read 'test/fixtures/project.pbxproj'}
+    let(:pbxdata) {File.read 'spec/fixtures/project.pbxproj'}
   
     context 'from a hash' do
       it 'produces the expected object graph' do
@@ -70,7 +70,7 @@ describe ZergXcode::Archiver do
   end
 
   describe 'archiving then unarchiving our fixture' do
-    let(:pbxdata) {File.read 'test/fixtures/project.pbxproj'}
+    let(:pbxdata) {File.read 'spec/fixtures/project.pbxproj'}
 
     it "should produce the same hash" do
       golden_hash = Parser.parse pbxdata

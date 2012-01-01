@@ -3,7 +3,7 @@ require 'zerg_xcode'
 describe ZergXcode do
 
   context "when loading a file" do
-    subject {ZergXcode.load 'test/fixtures/ZergSupport'}
+    subject {ZergXcode.load 'spec/fixtures/ZergSupport'}
 
     it "should find the targets" do
       targets = subject['targets'].map{ |target| target['name'] }.sort
@@ -11,7 +11,7 @@ describe ZergXcode do
     end
 
     it "should set the project's source filename" do
-      subject.source_filename.should == 'test/fixtures/ZergSupport.xcodeproj/project.pbxproj'
+      subject.source_filename.should == 'spec/fixtures/ZergSupport.xcodeproj/project.pbxproj'
     end
   end
 

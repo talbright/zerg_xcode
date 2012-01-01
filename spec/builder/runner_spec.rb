@@ -2,11 +2,11 @@ require 'zerg_xcode'
 
 describe ZergXcode::Builder::Runner do
   before do
-    @project = ZergXcode.load 'test/fixtures/ClosedLib'
+    @project = ZergXcode.load 'spec/fixtures/ClosedLib'
     @configuration = 'Release'
     @sdk = ZergXcode::Builder::Sdk.all.
         detect { |s| /i(?:OS|Phone) .*$/ =~ s[:name] }
-    @golden_build_path = 'test/fixtures/ClosedLib/build/Release-iphoneos'
+    @golden_build_path = 'spec/fixtures/ClosedLib/build/Release-iphoneos'
     @product = @golden_build_path + '/libClosedLib.a'
     ZergXcode::Builder::Runner.clean(@project, @sdk, @configuration)
   end

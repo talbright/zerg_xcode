@@ -3,73 +3,72 @@
 # License:: MIT
 
 require 'zerg_xcode'
-require 'test/unit'
 
 describe ZergXcode::Paths do
 
   include ZergXcode::Paths
   
   describe '#project_file_at' do
-    context "when given 'test/fixtures/ZergSupport'" do
-      subject {project_file_at('test/fixtures/ZergSupport')}
-      it {should == 'test/fixtures/ZergSupport.xcodeproj/project.pbxproj'}
+    context "when given 'spec/fixtures/ZergSupport'" do
+      subject {project_file_at('spec/fixtures/ZergSupport')}
+      it {should == 'spec/fixtures/ZergSupport.xcodeproj/project.pbxproj'}
     end
 
-    context "when given 'test/fixtures/ZergSupport.xcodeproj'" do
-      subject {project_file_at('test/fixtures/ZergSupport.xcodeproj')}
-      it {should == 'test/fixtures/ZergSupport.xcodeproj/project.pbxproj'}
+    context "when given 'spec/fixtures/ZergSupport.xcodeproj'" do
+      subject {project_file_at('spec/fixtures/ZergSupport.xcodeproj')}
+      it {should == 'spec/fixtures/ZergSupport.xcodeproj/project.pbxproj'}
     end
 
-    context "when given 'test/fixtures'" do
-      subject {project_file_at('test/fixtures')}
-      it {should == 'test/fixtures/project.pbxproj'}
+    context "when given 'spec/fixtures'" do
+      subject {project_file_at('spec/fixtures')}
+      it {should == 'spec/fixtures/project.pbxproj'}
     end
 
-    context "when given 'test'" do
-      subject {project_file_at('test')}
-      it {should == 'test/fixtures/project.pbxproj'}
+    context "when given 'spec'" do
+      subject {project_file_at('spec')}
+      it {should == 'spec/fixtures/project.pbxproj'}
     end
 
-    context "when given 'test/fixtures/TestApp'" do
-      subject {project_file_at('test/fixtures/TestApp')}
-      it {should == 'test/fixtures/TestApp/TestApp.xcodeproj/project.pbxproj'}
+    context "when given 'spec/fixtures/TestApp'" do
+      subject {project_file_at('spec/fixtures/TestApp')}
+      it {should == 'spec/fixtures/TestApp/TestApp.xcodeproj/project.pbxproj'}
     end
 
-    context "when given 'test/fixtures/TestApp/TestApp.xcodeproj'" do
-      subject {project_file_at('test/fixtures/TestApp/TestApp.xcodeproj')}
-      it {should == 'test/fixtures/TestApp/TestApp.xcodeproj/project.pbxproj'}
+    context "when given 'spec/fixtures/TestApp/TestApp.xcodeproj'" do
+      subject {project_file_at('spec/fixtures/TestApp/TestApp.xcodeproj')}
+      it {should == 'spec/fixtures/TestApp/TestApp.xcodeproj/project.pbxproj'}
     end
   end
 
   describe '#project_root_at' do
-    context "when given 'test/fixtures/ZergSupport'" do
-      subject {project_root_at('test/fixtures/ZergSupport')}
-      it {should == 'test/fixtures'}
+    context "when given 'spec/fixtures/ZergSupport'" do
+      subject {project_root_at('spec/fixtures/ZergSupport')}
+      it {should == 'spec/fixtures'}
     end
 
-    context "when given 'test/fixtures/ZergSupport.xcodeproj'" do
-      subject {project_root_at('test/fixtures/ZergSupport.xcodeproj')}
-      it {should == 'test/fixtures'}
+    context "when given 'spec/fixtures/ZergSupport.xcodeproj'" do
+      subject {project_root_at('spec/fixtures/ZergSupport.xcodeproj')}
+      it {should == 'spec/fixtures'}
     end
 
-    context "when given 'test/fixtures'" do
-      subject {project_root_at('test/fixtures')}
-      it {should == 'test'}
+    context "when given 'spec/fixtures'" do
+      subject {project_root_at('spec/fixtures')}
+      it {should == 'spec'}
     end
 
-    context "when given 'test'" do
-      subject {project_root_at('test')}
-      it {should == 'test'}
+    context "when given 'spec'" do
+      subject {project_root_at('spec')}
+      it {should == 'spec'}
     end
 
-    context "when given 'test/fixtures/TestApp'" do
-      subject {project_root_at('test/fixtures/TestApp')}
-      it {should == 'test/fixtures/TestApp'}
+    context "when given 'spec/fixtures/TestApp'" do
+      subject {project_root_at('spec/fixtures/TestApp')}
+      it {should == 'spec/fixtures/TestApp'}
     end
 
-    context "when given 'test/fixtures/TestApp/TestApp.xcodeproj'" do
-      subject {project_root_at('test/fixtures/TestApp/TestApp.xcodeproj')}
-      it {should == 'test/fixtures/TestApp'}
+    context "when given 'spec/fixtures/TestApp/TestApp.xcodeproj'" do
+      subject {project_root_at('spec/fixtures/TestApp/TestApp.xcodeproj')}
+      it {should == 'spec/fixtures/TestApp'}
     end
   end
 

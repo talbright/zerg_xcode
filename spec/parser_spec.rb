@@ -26,7 +26,7 @@ describe ZergXcode::Parser do
   end
 
   it "should parse our sample fixture" do
-    pbxdata = File.read 'test/fixtures/project.pbxproj'
+    pbxdata = File.read 'spec/fixtures/project.pbxproj'
     proj = ZergXcode::Parser.parse pbxdata
     proj['rootObject'].should == '29B97313FDCFA39411CA2CEA'
   end
