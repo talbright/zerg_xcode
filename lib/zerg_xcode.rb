@@ -6,6 +6,7 @@
 
 require 'zerg_xcode/file_format/archiver.rb'
 require 'zerg_xcode/file_format/encoder.rb'
+require 'zerg_xcode/file_format/id_generator.rb'
 require 'zerg_xcode/file_format/lexer.rb'
 require 'zerg_xcode/file_format/parser.rb'
 require 'zerg_xcode/file_format/scan_buffer.rb'

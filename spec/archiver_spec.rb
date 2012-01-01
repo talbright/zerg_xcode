@@ -30,8 +30,7 @@ describe ZergXcode::Archiver do
   end
   
   it "archives to a hash" do
-    hash = Archiver.archive_to_hash @root
-    hash.should == @archived
+    Archiver.archive_to_hash(@root).should == @archived
   end
   
   it "unarchives a hash" do
@@ -42,18 +41,6 @@ describe ZergXcode::Archiver do
     root[:sub2][:sub1].should == root[:sub1]
   end
 
-  describe Archiver::IdGenerator do
-    it "works" do
-      generator = Archiver::IdGenerator.new
-      generator.id_for(@root).should == '49'
-      generator.id_for(@sub2).should == '42'
-      new_id = generator.id_for @root
-      new_id.should_not == '49'
-      newer_id = generator.id_for @root
-      ['49', new_id].should_not include(newer_id)
-    end 
-  end
- 
   describe 'unarchiving an archive' do
     it "should produce the same hash" do
       golden_hash = Parser.parse @pbxdata
