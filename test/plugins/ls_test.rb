@@ -34,12 +34,12 @@ class Plugins::LsTest < Test::Unit::TestCase
       ["SDKROOT/System/Library/Frameworks/CoreGraphics.framework",
        "wrapper.framework"],
       ["BUILT_PRODUCTS_DIR/TestApp.app", nil]]
-    file_list = @plugin.list_for 'test/fixtures/project.pbxproj'
+    file_list = @plugin.list_for 'spec/fixtures/project.pbxproj'
     assert_equal golden_list.sort, file_list.sort
   end  
   
   def test_run
-    output = capture_output { @plugin.run(['test/fixtures']) }
+    output = capture_output { @plugin.run(['spec/fixtures']) }
     assert_equal "sourcecode.c.h       ./Classes/TestAppAppDelegate.h",
                  output[/^(.*?)$/]
   end

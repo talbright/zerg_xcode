@@ -21,10 +21,10 @@ class Plugins::IrbTest < Test::Unit::TestCase
   end
   
   def test_irb_call
-    test_project = ZergXcode.load 'test'
+    test_project = ZergXcode.load 'spec'
     
     flexmock(IRB).should_receive(:start).and_return(nil)
-    output = Dir.chdir('test') do
+    output = Dir.chdir('spec') do
       capture_output { @plugin.run([]) }
     end
     assert_equal test_project.attrs, $p.attrs, 'Loaded incorrect project'

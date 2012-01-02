@@ -14,7 +14,7 @@ class Plugins::AddlibraryTest < Test::Unit::TestCase
   def setup
     super
     @plugin = ZergXcode.plugin 'addlibrary'
-    @project = ZergXcode.load 'test/fixtures/ZergSupport'
+    @project = ZergXcode.load 'spec/fixtures/ZergSupport'
     
     @lib, @test_lib, @test_app = *@project['targets']
   end

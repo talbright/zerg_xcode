@@ -9,7 +9,7 @@ class PBXGroupTest < Test::Unit::TestCase
   PBXGroup = ZergXcode::Objects::PBXGroup
   
   def setup
-    @proj = ZergXcode.load 'test/fixtures/project.pbxproj'
+    @proj = ZergXcode.load 'spec/fixtures/project.pbxproj'
     @main_group = @proj['mainGroup']
   end
   

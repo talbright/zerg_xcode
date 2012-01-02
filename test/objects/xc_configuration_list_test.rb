@@ -9,7 +9,7 @@ class XCConfigurationListTest < Test::Unit::TestCase
   XCConfigurationList = ZergXcode::Objects::XCConfigurationList
   
   def test_xref_name
-    proj = ZergXcode.load 'test/fixtures/project.pbxproj'
+    proj = ZergXcode.load 'spec/fixtures/project.pbxproj'
     list = proj['buildConfigurationList']
     assert_equal XCConfigurationList, list.class
     assert_equal 'XCConfigurationList', list.xref_name

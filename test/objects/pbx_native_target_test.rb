@@ -23,7 +23,7 @@ class PBXNativeTargetTest < Test::Unit::TestCase
        "System/Library/Frameworks/CoreGraphics.framework"],    
     ]
     
-    project = ZergXcode.load('test/fixtures/project.pbxproj')
+    project = ZergXcode.load('spec/fixtures/project.pbxproj')
     assert_equal PBXNativeTarget, project['targets'].first.class
     files = project['targets'].first.all_files
     file_list = files.map do |file|

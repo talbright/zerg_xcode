@@ -32,7 +32,7 @@ class PBXProjectTest < Test::Unit::TestCase
       ["BUILT_PRODUCTS_DIR/TestApp.app", nil],
     ]
     
-    project = ZergXcode.load('test/fixtures/project.pbxproj')
+    project = ZergXcode.load('spec/fixtures/project.pbxproj')
     assert_equal PBXProject, project.class 
     files = project.all_files
     file_list = files.map { |f| [f[:path], f[:object]['lastKnownFileType']] }
@@ -49,7 +49,7 @@ class PBXProjectTest < Test::Unit::TestCase
       ["./ZergSupport/TestSupport/GTM/GTMDefines.h", "sourcecode.c.h"],
       ["./ZergSupport/WebSupport/ZNHttpRequest.m", "sourcecode.c.objc"],
     ]
-    files = ZergXcode.load('test/fixtures/ZergSupport').all_files
+    files = ZergXcode.load('spec/fixtures/ZergSupport').all_files
     file_list = files.map { |f| [f[:path], f[:object]['lastKnownFileType']] }
     golden_entries.each do |entry|
       assert file_list.include?(entry), "Missing #{entry.inspect}"
@@ -57,32 +57,32 @@ class PBXProjectTest < Test::Unit::TestCase
   end
   
   def test_save
-    project = ZergXcode.load('test/fixtures') 
+    project = ZergXcode.load('spec/fixtures') 
     flexmock(ZergXcode).should_receive(:dump).
-                        with(project, 'test/fixtures/project.pbxproj').
+                        with(project, 'spec/fixtures/project.pbxproj').
                         and_return(nil)
     project.save!
   end
   
   def test_root_path
-    project = ZergXcode.load('test/fixtures/ZergSupport.xcodeproj') 
-    assert_equal 'test/fixtures', project.root_path
+    project = ZergXcode.load('spec/fixtures/ZergSupport.xcodeproj') 
+    assert_equal 'spec/fixtures', project.root_path
   end
   
   def test_copy_metadata
-    project = ZergXcode.load('test/fixtures/ZergSupport.xcodeproj')
+    project = ZergXcode.load('spec/fixtures/ZergSupport.xcodeproj')
     clone = ZergXcode::XcodeObject.from project
     
     assert_equal project.source_filename, clone.source_filename
   end
   
   def test_xref_name
-    project = ZergXcode.load('test/fixtures/project.pbxproj')
+    project = ZergXcode.load('spec/fixtures/project.pbxproj')
     assert_equal 'PBXProject', project.xref_name
   end
   
   def test_find_group_named
-    project = ZergXcode.load('test/fixtures/project.pbxproj')
+    project = ZergXcode.load('spec/fixtures/project.pbxproj')
     found_group = project.find_group_named("Classes")
     assert_not_nil found_group
     assert_equal PBXGroup, found_group.class

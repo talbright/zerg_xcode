@@ -9,7 +9,7 @@ class PBXBuildFileTest < Test::Unit::TestCase
   PBXBuildFile = ZergXcode::Objects::PBXBuildFile
   
   def setup
-    @target = ZergXcode.load('test/fixtures/project.pbxproj')['targets'].first
+    @target = ZergXcode.load('spec/fixtures/project.pbxproj')['targets'].first
     @sources_phase = @target['buildPhases'][1]
     @build_file = @sources_phase['files'].first 
   end
@@ -19,7 +19,7 @@ class PBXBuildFileTest < Test::Unit::TestCase
     assert_equal 'main.m', @build_file.filename
     assert_equal 'sourcecode.c.objc', @build_file.file_type
     
-    big_project = ZergXcode.load('test/fixtures/ZergSupport')
+    big_project = ZergXcode.load('spec/fixtures/ZergSupport')
     big_project['targets'].map { |t| t.all_files }.flatten.each do |file|
       assert_not_nil file[:build_object].file_type,
                      "No file type for #{file[:build_object].inspect}"
@@ -27,7 +27,7 @@ class PBXBuildFileTest < Test::Unit::TestCase
   end
   
   def test_guessed_build_phase_type
-    big_project = ZergXcode.load('test/fixtures/ZergSupport')
+    big_project = ZergXcode.load('spec/fixtures/ZergSupport')
         
     phases = @target['buildPhases'] +
         big_project['targets'].map { |t| t['buildPhases'] }.flatten

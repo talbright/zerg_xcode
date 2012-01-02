@@ -16,7 +16,7 @@ class Plugins::RetargetTest < Test::Unit::TestCase
   def setup
     super
     @plugin = ZergXcode.plugin 'retarget'
-    @proj = ZergXcode.load 'test/fixtures/TestApp/TestApp.xcodeproj'
+    @proj = ZergXcode.load 'spec/fixtures/TestApp/TestApp.xcodeproj'
     @regexp = /^Test.*\.[^a]/
     
     @golden_list_for_app = [

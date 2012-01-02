@@ -20,34 +20,34 @@ class Plugins::ImportTest < Test::Unit::TestCase
   end
   
   def test_import_identical_small
-    project = ZergXcode.load 'test/fixtures/TestApp'
+    project = ZergXcode.load 'spec/fixtures/TestApp'
     assert_import_identical project
   end
   
   def test_import_identical_large
-    project = ZergXcode.load 'test/fixtures/ZergSupport'
+    project = ZergXcode.load 'spec/fixtures/ZergSupport'
     assert_import_identical project    
   end
 
   def test_import_identical_30app
-    project = ZergXcode.load 'test/fixtures/TestApp30'
+    project = ZergXcode.load 'spec/fixtures/TestApp30'
     assert_import_identical project
   end
   
   def test_import_identical_30lib
-    project = ZergXcode.load 'test/fixtures/TestApp30'
+    project = ZergXcode.load 'spec/fixtures/TestApp30'
     assert_import_identical project
   end
 
   def test_import_differents
-    small = ZergXcode.load 'test/fixtures/TestApp'
-    large = ZergXcode.load 'test/fixtures/ZergSupport'
+    small = ZergXcode.load 'spec/fixtures/TestApp'
+    large = ZergXcode.load 'spec/fixtures/ZergSupport'
     assert_import_differents small, large
   end
   
   def test_import_differents_30
-    small = ZergXcode.load 'test/fixtures/TestApp30'
-    large = ZergXcode.load 'test/fixtures/TestLib30'
+    small = ZergXcode.load 'spec/fixtures/TestApp30'
+    large = ZergXcode.load 'spec/fixtures/TestLib30'
     assert_import_differents small, large    
   end
 
@@ -105,7 +105,7 @@ class Plugins::ImportTest < Test::Unit::TestCase
   end
   
   def test_bin_mappings
-    proj = ZergXcode.load 'test/fixtures/TestApp'
+    proj = ZergXcode.load 'spec/fixtures/TestApp'
     mappings = @plugin.cross_reference proj, ZergXcode::XcodeObject.from(proj)
     
     bins = @plugin.bin_mappings mappings, proj
@@ -123,22 +123,22 @@ class Plugins::ImportTest < Test::Unit::TestCase
   end
   
   def test_cross_reference_identical_small
-    project = ZergXcode.load 'test/fixtures/TestApp'
+    project = ZergXcode.load 'spec/fixtures/TestApp'
     assert_cross_reference_covers_project project
   end
   
   def test_cross_reference_identical_large
-    project = ZergXcode.load 'test/fixtures/ZergSupport'
+    project = ZergXcode.load 'spec/fixtures/ZergSupport'
     assert_cross_reference_covers_project project    
   end
 
   def test_cross_reference_identical_30app
-    project = ZergXcode.load 'test/fixtures/TestApp30'
+    project = ZergXcode.load 'spec/fixtures/TestApp30'
     assert_cross_reference_covers_project project
   end
 
   def test_cross_reference_identical_30lib
-    project = ZergXcode.load 'test/fixtures/TestLib30'
+    project = ZergXcode.load 'spec/fixtures/TestLib30'
     assert_cross_reference_covers_project project
   end
   
@@ -162,27 +162,27 @@ class Plugins::ImportTest < Test::Unit::TestCase
   end
   
   def test_execute_file_ops
-    ops = [{ :op => :delete, :path => 'test/fixtures/junk.m' },
+    ops = [{ :op => :delete, :path => 'spec/fixtures/junk.m' },
            { :op => :copy, :from => 'test/awesome.m',
-                           :to => 'test/fixtures/NewDir/awesome.m' },
+                           :to => 'spec/fixtures/NewDir/awesome.m' },
            { :op => :copy, :from => 'test/ghost.m',
-                           :to => 'test/fixtures/Dir/ghost.m' },
+                           :to => 'spec/fixtures/Dir/ghost.m' },
           ]
-    flexmock(File).should_receive(:exist?).with('test/fixtures/junk.m').
+    flexmock(File).should_receive(:exist?).with('spec/fixtures/junk.m').
                    and_return(true)
-    flexmock(FileUtils).should_receive(:rm_r).with('test/fixtures/junk.m').
+    flexmock(FileUtils).should_receive(:rm_r).with('spec/fixtures/junk.m').
                         and_return(nil)
-    flexmock(File).should_receive(:exist?).with('test/fixtures/NewDir').
+    flexmock(File).should_receive(:exist?).with('spec/fixtures/NewDir').
                    and_return(false)
-    flexmock(FileUtils).should_receive(:mkdir_p).with('test/fixtures/NewDir').
+    flexmock(FileUtils).should_receive(:mkdir_p).with('spec/fixtures/NewDir').
                         and_return(nil)
     flexmock(File).should_receive(:exist?).with('test/awesome.m').
                    and_return(true)
     flexmock(FileUtils).should_receive(:cp_r).
                         with('test/awesome.m',
-                             'test/fixtures/NewDir/awesome.m').
+                             'spec/fixtures/NewDir/awesome.m').
                         and_return(nil)
-    flexmock(File).should_receive(:exist?).with('test/fixtures/Dir').
+    flexmock(File).should_receive(:exist?).with('spec/fixtures/Dir').
                    and_return(true)
     flexmock(File).should_receive(:exist?).with('test/ghost.m').
                    and_return(false)
@@ -192,32 +192,32 @@ class Plugins::ImportTest < Test::Unit::TestCase
   end
   
   def test_import_file_ops_flatten
-    small = ZergXcode.load 'test/fixtures/TestApp'
-    flat = ZergXcode.load 'test/fixtures/FlatTestApp'
+    small = ZergXcode.load 'spec/fixtures/TestApp'
+    flat = ZergXcode.load 'spec/fixtures/FlatTestApp'
     
     golden_ops = [
-      ['delete', 'test/fixtures/TestApp/Classes/TestAppAppDelegate.h', '*'],
-      ['delete', 'test/fixtures/TestApp/Classes/TestAppAppDelegate.m', '*'],
-      ['delete', 'test/fixtures/TestApp/Classes/TestAppViewController.h', '*'],
-      ['delete', 'test/fixtures/TestApp/Classes/TestAppViewController.m', '*'],
-      ['copy', 'test/fixtures/TestApp/TestAppAppDelegate.h',
-               'test/fixtures/FlatTestApp/TestAppAppDelegate.h'],
-      ['copy', 'test/fixtures/TestApp/TestAppAppDelegate.m',
-               'test/fixtures/FlatTestApp/TestAppAppDelegate.m'],
-      ['copy', 'test/fixtures/TestApp/TestAppViewController.h',
-               'test/fixtures/FlatTestApp/TestAppViewController.h'],
-      ['copy', 'test/fixtures/TestApp/TestAppViewController.m',
-               'test/fixtures/FlatTestApp/TestAppViewController.m'],
-      ['copy', 'test/fixtures/TestApp/TestApp_Prefix.pch',
-               'test/fixtures/FlatTestApp/TestApp_Prefix.pch'],
-      ['copy', 'test/fixtures/TestApp/main.m',
-               'test/fixtures/FlatTestApp/main.m'],
-      ['copy', 'test/fixtures/TestApp/TestAppViewController.xib',
-               'test/fixtures/FlatTestApp/TestAppViewController.xib'],
-      ['copy', 'test/fixtures/TestApp/MainWindow.xib',
-               'test/fixtures/FlatTestApp/MainWindow.xib'],
-      ['copy', 'test/fixtures/TestApp/Info.plist',
-               'test/fixtures/FlatTestApp/Info.plist'],
+      ['delete', 'spec/fixtures/TestApp/Classes/TestAppAppDelegate.h', '*'],
+      ['delete', 'spec/fixtures/TestApp/Classes/TestAppAppDelegate.m', '*'],
+      ['delete', 'spec/fixtures/TestApp/Classes/TestAppViewController.h', '*'],
+      ['delete', 'spec/fixtures/TestApp/Classes/TestAppViewController.m', '*'],
+      ['copy', 'spec/fixtures/TestApp/TestAppAppDelegate.h',
+               'spec/fixtures/FlatTestApp/TestAppAppDelegate.h'],
+      ['copy', 'spec/fixtures/TestApp/TestAppAppDelegate.m',
+               'spec/fixtures/FlatTestApp/TestAppAppDelegate.m'],
+      ['copy', 'spec/fixtures/TestApp/TestAppViewController.h',
+               'spec/fixtures/FlatTestApp/TestAppViewController.h'],
+      ['copy', 'spec/fixtures/TestApp/TestAppViewController.m',
+               'spec/fixtures/FlatTestApp/TestAppViewController.m'],
+      ['copy', 'spec/fixtures/TestApp/TestApp_Prefix.pch',
+               'spec/fixtures/FlatTestApp/TestApp_Prefix.pch'],
+      ['copy', 'spec/fixtures/TestApp/main.m',
+               'spec/fixtures/FlatTestApp/main.m'],
+      ['copy', 'spec/fixtures/TestApp/TestAppViewController.xib',
+               'spec/fixtures/FlatTestApp/TestAppViewController.xib'],
+      ['copy', 'spec/fixtures/TestApp/MainWindow.xib',
+               'spec/fixtures/FlatTestApp/MainWindow.xib'],
+      ['copy', 'spec/fixtures/TestApp/Info.plist',
+               'spec/fixtures/FlatTestApp/Info.plist'],
     ]
     
     
@@ -229,32 +229,32 @@ class Plugins::ImportTest < Test::Unit::TestCase
   end
   
   def test_import_file_ops_branch
-    small = ZergXcode.load 'test/fixtures/TestApp'
-    flat = ZergXcode.load 'test/fixtures/FlatTestApp'
+    small = ZergXcode.load 'spec/fixtures/TestApp'
+    flat = ZergXcode.load 'spec/fixtures/FlatTestApp'
     
     golden_ops = [
-      ['delete', 'test/fixtures/FlatTestApp/TestAppAppDelegate.h', '*'],
-      ['delete', 'test/fixtures/FlatTestApp/TestAppAppDelegate.m', '*'],
-      ['delete', 'test/fixtures/FlatTestApp/TestAppViewController.h', '*'],
-      ['delete', 'test/fixtures/FlatTestApp/TestAppViewController.m', '*'],
-      ['copy', 'test/fixtures/FlatTestApp/Classes/TestAppAppDelegate.h',
-               'test/fixtures/TestApp/Classes/TestAppAppDelegate.h'],
-      ['copy', 'test/fixtures/FlatTestApp/Classes/TestAppAppDelegate.m',
-               'test/fixtures/TestApp/Classes/TestAppAppDelegate.m'],
-      ['copy', 'test/fixtures/FlatTestApp/Classes/TestAppViewController.h',
-               'test/fixtures/TestApp/Classes/TestAppViewController.h'],
-      ['copy', 'test/fixtures/FlatTestApp/Classes/TestAppViewController.m',
-               'test/fixtures/TestApp/Classes/TestAppViewController.m'],
-      ['copy', 'test/fixtures/FlatTestApp/TestApp_Prefix.pch',
-               'test/fixtures/TestApp/TestApp_Prefix.pch'],
-      ['copy', 'test/fixtures/FlatTestApp/main.m',
-               'test/fixtures/TestApp/main.m'],
-      ['copy', 'test/fixtures/FlatTestApp/TestAppViewController.xib',
-               'test/fixtures/TestApp/TestAppViewController.xib'],
-      ['copy', 'test/fixtures/FlatTestApp/MainWindow.xib',
-               'test/fixtures/TestApp/MainWindow.xib'],
-      ['copy', 'test/fixtures/FlatTestApp/Info.plist',
-               'test/fixtures/TestApp/Info.plist'],
+      ['delete', 'spec/fixtures/FlatTestApp/TestAppAppDelegate.h', '*'],
+      ['delete', 'spec/fixtures/FlatTestApp/TestAppAppDelegate.m', '*'],
+      ['delete', 'spec/fixtures/FlatTestApp/TestAppViewController.h', '*'],
+      ['delete', 'spec/fixtures/FlatTestApp/TestAppViewController.m', '*'],
+      ['copy', 'spec/fixtures/FlatTestApp/Classes/TestAppAppDelegate.h',
+               'spec/fixtures/TestApp/Classes/TestAppAppDelegate.h'],
+      ['copy', 'spec/fixtures/FlatTestApp/Classes/TestAppAppDelegate.m',
+               'spec/fixtures/TestApp/Classes/TestAppAppDelegate.m'],
+      ['copy', 'spec/fixtures/FlatTestApp/Classes/TestAppViewController.h',
+               'spec/fixtures/TestApp/Classes/TestAppViewController.h'],
+      ['copy', 'spec/fixtures/FlatTestApp/Classes/TestAppViewController.m',
+               'spec/fixtures/TestApp/Classes/TestAppViewController.m'],
+      ['copy', 'spec/fixtures/FlatTestApp/TestApp_Prefix.pch',
+               'spec/fixtures/TestApp/TestApp_Prefix.pch'],
+      ['copy', 'spec/fixtures/FlatTestApp/main.m',
+               'spec/fixtures/TestApp/main.m'],
+      ['copy', 'spec/fixtures/FlatTestApp/TestAppViewController.xib',
+               'spec/fixtures/TestApp/TestAppViewController.xib'],
+      ['copy', 'spec/fixtures/FlatTestApp/MainWindow.xib',
+               'spec/fixtures/TestApp/MainWindow.xib'],
+      ['copy', 'spec/fixtures/FlatTestApp/Info.plist',
+               'spec/fixtures/TestApp/Info.plist'],
     ]
     
     file_ops = @plugin.import_project! small, flat

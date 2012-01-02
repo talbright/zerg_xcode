@@ -10,7 +10,7 @@ class PBXTargetDependencyTest < Test::Unit::TestCase
   
   def setup
     @project = ZergXcode.load(
-        'test/fixtures/ZergSupport.xcodeproj/project.pbxproj')
+        'spec/fixtures/ZergSupport.xcodeproj/project.pbxproj')
     @dependency = @project['targets'][2]['dependencies'].first
     @target = @project['targets'][1]
   end

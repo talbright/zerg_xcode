@@ -24,12 +24,12 @@ class Plugins::LstargetsTest < Test::Unit::TestCase
       ["ZergSupportTests", "ZergSupportTests",
        "com.apple.product-type.application"],
     ]
-    file_list = @plugin.list_for 'test/fixtures/ZergSupport'
+    file_list = @plugin.list_for 'spec/fixtures/ZergSupport'
     assert_equal golden_list.sort, file_list.sort
   end  
   
   def test_run
-    output = capture_output { @plugin.run(['test/fixtures/ZergSupport']) }
+    output = capture_output { @plugin.run(['spec/fixtures/ZergSupport']) }
     assert_equal "library.static       ZergSupport > ZergSupport",
                  output[/^(.*?)$/]
   end

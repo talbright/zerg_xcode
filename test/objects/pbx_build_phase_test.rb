@@ -9,7 +9,7 @@ class PBXBuildPhaseTest < Test::Unit::TestCase
   PBXBuildPhase = ZergXcode::Objects::PBXBuildPhase
   
   def setup
-    @target = ZergXcode.load('test/fixtures/project.pbxproj')['targets'].first
+    @target = ZergXcode.load('spec/fixtures/project.pbxproj')['targets'].first
     @sources_phase = @target['buildPhases'][1]
   end
   

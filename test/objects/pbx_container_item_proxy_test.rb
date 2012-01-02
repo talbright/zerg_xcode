@@ -10,7 +10,7 @@ class PBXContainerItemProxyTest < Test::Unit::TestCase
   
   def setup
     @project = ZergXcode.load(
-        'test/fixtures/ZergSupport.xcodeproj/project.pbxproj')
+        'spec/fixtures/ZergSupport.xcodeproj/project.pbxproj')
     @proxy = @project['targets'][2]['dependencies'].first['targetProxy']
     @target = @project['targets'][1] 
   end
