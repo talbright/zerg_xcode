@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Victor Costan"]
-  s.date = "2012-01-02"
+  s.date = "2012-01-03"
   s.email = "victor@zergling.net"
   s.executables = ["zerg-xcode"]
   s.extra_rdoc_files = [
@@ -93,7 +93,8 @@ Gem::Specification.new do |s|
     "test/plugins/irb_test.rb",
     "test/plugins/ls_test.rb",
     "test/plugins/lstargets_test.rb",
-    "test/plugins/retarget_test.rb"
+    "test/plugins/retarget_test.rb",
+    "zerg_xcode.gemspec"
   ]
   s.homepage = "http://github.com/zerglings/zerg_xcode"
   s.require_paths = ["lib"]
