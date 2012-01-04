@@ -38,6 +38,11 @@ class PBXGroup < ZergXcode::XcodeObject
     end
     group
   end
+
+  def to_s
+    "PBXGroup<#{xref_name}>"
+  end
+
 end  # class ZergXcode::Objects::PBXGroup
 
 end  # namespace ZergXcode::Objects

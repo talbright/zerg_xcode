@@ -17,10 +17,7 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
       it 'should find the group by name' do
         subject.xref_name.should eq 'Classes'
       end
-    end
-    context "when the group does not exist" do
-      subject { main_group.find_group_named "Foo" }
-      it { should be_nil }
+      it { should be_found_within main_group }
     end
   end
 
@@ -33,9 +30,15 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
     it 'should have a "sourceTree" of "<group>"' do
       subject['sourceTree'].should eq "<group>"
     end
-    it 'should be findable' do
-      subject.should be main_group.find_group_named('New Group')
+    it { should be_found_within main_group } 
+  end
+  Rspec::Matchers.define :be_found_within do |expected|
+    match do |actual| 
+      expected.find_group_named(actual.xref_name).equal? actual 
+    end
+    failure_message_for_should do |actual|
+      "expected #{expected.xref_name} to be found within #{actual.xref_name}"
     end
   end
-  
 end
+
