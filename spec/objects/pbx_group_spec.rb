@@ -21,8 +21,8 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
     end
   end
 
-  describe "newly created group" do
-    subject { main_group.create_group 'New Group' }
+  describe "a newly created group" do
+    subject { main_group.mkdir 'New Group' }
     it 'should have children' do
       subject.children.should_not be_nil
     end
@@ -41,7 +41,7 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
     end
   end
 
-  describe 'checking whether a path exists' do
+  context 'when checking whether a path exists' do
     context 'with a one-element path' do
       subject {main_group.exists?('Foo')}
       context 'when the element does not exist' do
@@ -49,7 +49,7 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
       end
 
       context 'when the element exists' do
-        before {main_group.create_group 'Foo'}
+        before {main_group.mkdir 'Foo'}
         it {should be_true}
       end
     end
@@ -60,11 +60,11 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
         it {should be_false}
       end
       context 'when part of the path exists' do
-        before {main_group.create_group('Foo').create_group('Bar')}
+        before {main_group.mkdir('Foo').mkdir('Bar')}
         it {should be_false}
       end
       context 'when all of the path exists' do
-        before {main_group.create_group('Foo').create_group('Bar').create_group('Baz')}
+        before {main_group.mkdir('Foo').mkdir('Bar').mkdir('Baz')}
         it {should be_true}
       end
     end

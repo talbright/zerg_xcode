@@ -27,7 +27,7 @@ class PBXGroup < ZergXcode::XcodeObject
     self['children']
   end
   
-  def create_group(path_name, group_name=nil, source_tree='<group>')
+  def mkdir(path_name, group_name=nil, source_tree='<group>')
     group_name = group_name || path_name
     unless group = find_group_named(group_name)
       group = ZergXcode::Objects::PBXGroup.new 'name' => group_name, 
