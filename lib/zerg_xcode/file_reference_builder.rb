@@ -14,11 +14,16 @@ class FileReferenceBuilder
 
   def build
     ZergXcode::XcodeObject.new 'isa' => :PBXFileReference,
-                               'path' => File.basename(@path),
+                               'path' => reference_path,
                                'fileEncoding' => 4,
                                'sourceTree' => '<group>',
                                'lastKnownFileType' => last_known_file_type
   end
+
+  def reference_path
+    File.basename @path
+  end
+  private :reference_path
 
   def last_known_file_type
     FILE_TYPES[extension] || "file#{extension}"
