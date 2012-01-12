@@ -127,7 +127,9 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
     end
     describe 'the added file reference object' do
       subject {main_group.child_with_path 'Foo/Bar/baz.cpp'}
-      it {should be_kind_of(ZergXcode::XcodeObject)}
+      it 'should be a PBXFileReference' do
+        subject['isa'].should eq :PBXFileReference
+      end
       it 'should have an xref_name containing only the file part' do
         subject.xref_name.should eq 'baz.cpp'
       end
