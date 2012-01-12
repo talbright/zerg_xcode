@@ -86,7 +86,8 @@ class PBXGroup < ZergXcode::XcodeObject
     file_reference = ZergXcode::XcodeObject.new 'isa' => :PBXFileReference,
                                                 'path' => File.basename(path),
                                                 'fileEncoding' => 4,
-                                                'sourceTree' => '<group>'
+                                                'sourceTree' => '<group>',
+                                                'lastKnownFileType' => 'sourcecode.c.h'
     group.children << file_reference
     file_reference
   end

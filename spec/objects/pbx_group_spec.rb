@@ -143,6 +143,12 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
         subject['sourceTree'].should eq '<group>'
       end
     end
+    describe "the added file reference's lastKnownFileType" do
+      context 'when the file has a .h extension' do
+        subject {main_group.add_file_reference('Slime/file.h')['lastKnownFileType']}
+        it {should eq 'sourcecode.c.h'}
+      end
+    end
   end
 
 end
