@@ -21,17 +21,20 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
     end
   end
 
-  describe "a newly created group" do
-    subject { main_group.mkdir 'New Group' }
-    it 'should have children' do
-      subject.children.should_not be_nil
+  context 'when creating a new group' do
+    describe 'the new group' do
+      subject { main_group.mkdir 'New Group' }
+      it { should_not be_nil }
+      it 'should have children' do
+        subject.children.should_not be_nil
+      end
+      it 'should have a "sourceTree" of "<group>"' do
+        subject['sourceTree'].should eq "<group>"
+      end
+      it { should be_found_within main_group } 
     end
-    it { should_not be_nil }
-    it 'should have a "sourceTree" of "<group>"' do
-      subject['sourceTree'].should eq "<group>"
-    end
-    it { should be_found_within main_group } 
   end
+
   Rspec::Matchers.define :be_found_within do |expected|
     match do |actual| 
       expected.find_group_named(actual.xref_name).equal? actual 
