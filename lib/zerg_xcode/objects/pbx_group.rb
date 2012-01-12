@@ -43,14 +43,14 @@ class PBXGroup < ZergXcode::XcodeObject
   end
 
   def mkdir_p path
-    path.split('/').inject(self) do |group, path_element|
+    path_elements(path).inject(self) do |group, path_element|
       group.mkdir_f path_element
     end
   end
 
   def exists? path
     current_group = self
-    path.split('/').each do |path_element|
+    path_elements(path).each do |path_element|
       next_group = current_group.child_named path_element
       return false unless next_group
       current_group = next_group
@@ -64,6 +64,11 @@ class PBXGroup < ZergXcode::XcodeObject
 
   def to_s
     "PBXGroup<#{xref_name}>"
+  end
+
+private
+  def path_elements path
+    path.split('/')
   end
 
 end  # class ZergXcode::Objects::PBXGroup
