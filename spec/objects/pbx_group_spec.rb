@@ -118,12 +118,18 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
         should be(the_child)
       end
     end
+  end
 
+  describe '#add_file_reference' do
+    it 'creates the parent group' do
+      main_group.add_file_reference 'Foo/Bar/baz.cpp'
+      main_group.child_with_path('Foo/Bar').should be_kind_of(ZergXcode::Objects::PBXGroup)
+    end
   end
 
 end
 
-Rspec::Matchers.define :be_found_within do |expected|
+RSpec::Matchers.define :be_found_within do |expected|
   match do |actual| 
     expected.child_with_name(actual.xref_name).equal? actual 
   end

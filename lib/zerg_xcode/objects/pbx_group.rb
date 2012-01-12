@@ -70,6 +70,11 @@ class PBXGroup < ZergXcode::XcodeObject
     children.detect {|child| child.xref_name == name}
   end
 
+  def add_file_reference path
+    puts "Making: #{File.dirname(path)}"
+    mkdir_p(File.dirname(path))
+  end
+
   # :nodoc:
   def to_s
     "PBXGroup<#{xref_name}>"
