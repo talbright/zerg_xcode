@@ -100,7 +100,7 @@ end
 
 Rspec::Matchers.define :be_found_within do |expected|
   match do |actual| 
-    expected.find_group_named(actual.xref_name).equal? actual 
+    expected.child_named(actual.xref_name).equal? actual 
   end
   failure_message_for_should do |actual|
     "expected #{expected.xref_name} to be found within #{actual.xref_name}"

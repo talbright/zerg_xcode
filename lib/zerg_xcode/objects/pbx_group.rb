@@ -42,7 +42,7 @@ class PBXGroup < ZergXcode::XcodeObject
     current_group = self
     path.split('/').each do |path_element|
       if current_group.exists? path_element
-        current_group = current_group.children.detect {|child| child.xref_name == path_element}
+        current_group = current_group.child_named path_element
       else
         current_group = current_group.mkdir path_element
       end
@@ -53,11 +53,15 @@ class PBXGroup < ZergXcode::XcodeObject
   def exists? path
     current_group = self
     path.split('/').each do |path_element|
-      next_group = current_group.children.detect {|child| child.xref_name == path_element}
+      next_group = current_group.child_named path_element
       return false unless next_group
       current_group = next_group
     end
     true
+  end
+
+  def child_named name
+    children.detect {|child| child.xref_name == name}
   end
 
   def to_s
