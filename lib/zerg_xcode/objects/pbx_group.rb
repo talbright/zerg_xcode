@@ -39,6 +39,9 @@ class PBXGroup < ZergXcode::XcodeObject
     group
   end
 
+  def exists? path
+  end
+
   def to_s
     "PBXGroup<#{xref_name}>"
   end

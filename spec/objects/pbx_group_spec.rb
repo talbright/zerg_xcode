@@ -40,5 +40,15 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
       "expected #{expected.xref_name} to be found within #{actual.xref_name}"
     end
   end
+
+  describe '#exists?' do
+    context 'with a one-element path' do
+      subject {main_group.exists?('Foo')}
+      context 'when the element does not exist' do
+        it {should be_false}
+      end
+    end
+  end
+
 end
 
