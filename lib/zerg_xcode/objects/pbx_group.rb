@@ -11,8 +11,14 @@ module ZergXcode::Objects
 # A group of files (shown as a folder) in an Xcode project.
 class PBXGroup < ZergXcode::XcodeObject
 
+  # An array of all immediate children of this node
+  attr_reader :children
+  def children
+    self['children']
+  end
+
   # call-seq:
-  #  mkdir(name) ⇒ aChild
+  #  mkdir(name) ⇒ aGroup
   #
   # Creates a child group with name _name_.  Raises Errno::EEXIST if a child
   # with that name already exists.
@@ -28,7 +34,7 @@ class PBXGroup < ZergXcode::XcodeObject
   end
 
   # call-seq:
-  #  mkdir_f(name) ⇒ aChild
+  #  mkdir_f(name) ⇒ aGroup
   #
   # If a child with name _name_ already exists, that child is returned;
   # otherwise, a new child group is created and returned.
@@ -37,7 +43,7 @@ class PBXGroup < ZergXcode::XcodeObject
   end
 
   # call-seq:
-  #  mkdir_p(path) ⇒ aChild
+  #  mkdir_p(path) ⇒ aGroup
   #
   # If a child with path _path_ exists, that child is returned; otherwise,
   # groups are created to make the path exist and the deepest group is
@@ -48,12 +54,9 @@ class PBXGroup < ZergXcode::XcodeObject
     end
   end
 
-  # An array of all immediate children of this node
-  attr_reader :children
-  def children
-    self['children']
-  end
-  
+  # call-seq:
+  #  child_with_path(path) ⇒ aChild
+  #
   # If a child exists at the specified path (which may contain slashes), that
   # child is returned.  Otherwise, nil is returned.
   def child_with_path path
@@ -64,6 +67,9 @@ class PBXGroup < ZergXcode::XcodeObject
   alias_method :exist?, :child_with_path
   alias_method :exists?, :child_with_path
 
+  # call-seq:
+  #  child_with_name(path) ⇒ aChild
+  #
   # If this group has an _immediate_ child with the specified name, it is
   # returned; otherwise, nil is returned.
   def child_with_name name
