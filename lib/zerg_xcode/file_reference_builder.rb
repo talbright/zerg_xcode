@@ -21,7 +21,7 @@ class FileReferenceBuilder
   end
 
   def reference_path
-    File.basename @path
+    File.basename path
   end
   private :reference_path
 
@@ -31,9 +31,14 @@ class FileReferenceBuilder
   private :last_known_file_type
 
   def extension
-    File.extname @path
+    File.extname path
   end
   private :extension
+
+  def path
+    @path
+  end
+  private :path
 
 end
 
