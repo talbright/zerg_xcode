@@ -23,10 +23,6 @@ class PBXGroup < ZergXcode::XcodeObject
     return nil
   end
   
-  def children
-    self['children']
-  end
-  
   def mkdir name
     raise Errno::ENOTNAM if name =~ /\//
     raise Errno::EEXIST if exists? name
@@ -48,6 +44,10 @@ class PBXGroup < ZergXcode::XcodeObject
     end
   end
 
+  def children
+    self['children']
+  end
+  
   def child_with_path path
     path_elements(path).inject(self) do |group, path_element|
       group.child_with_name(path_element) if group
@@ -69,6 +69,6 @@ private
     path.split('/')
   end
 
-end  # class ZergXcode::Objects::PBXGroup
+end
 
-end  # namespace ZergXcode::Objects
+end
