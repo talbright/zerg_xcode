@@ -9,17 +9,19 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
     it { should be_a PBXGroup }
   end
   
-  context 'when creating a new group' do
-    describe 'the new group' do
-      subject { main_group.mkdir 'New Group' }
-      it { should_not be_nil }
-      it 'should have children' do
-        subject.children.should_not be_nil
+  describe '#mkdir' do
+    context 'when the group does not already exist' do
+      describe 'the new group' do
+        subject { main_group.mkdir 'New Group' }
+        it { should_not be_nil }
+        it 'should have children' do
+          subject.children.should_not be_nil
+        end
+        it 'should have a "sourceTree" of "<group>"' do
+          subject['sourceTree'].should eq "<group>"
+        end
+        it { should be_found_within main_group } 
       end
-      it 'should have a "sourceTree" of "<group>"' do
-        subject['sourceTree'].should eq "<group>"
-      end
-      it { should be_found_within main_group } 
     end
     context 'when the group already exists' do
       before {main_group.mkdir 'New Group'}
@@ -36,7 +38,7 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
     end
   end
 
-  context 'when creating a new group recursively' do
+  describe '#mkdir_p' do
     before {main_group.mkdir_p 'Foo/Bar'}
     it 'creates the first part of the path' do
       main_group.exists?('Foo').should be_true
@@ -55,31 +57,35 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
     end
   end
 
-  context 'when checking whether a path exists' do
+  describe '#child_with_path' do
     context 'with a one-element path' do
       subject {main_group.exists?('Foo')}
       context 'when the element does not exist' do
-        it {should be_false}
+        it {should be_nil}
       end
 
       context 'when the element exists' do
-        before {main_group.mkdir 'Foo'}
-        it {should be_true}
+        let(:foo) {main_group.mkdir 'Foo'}
+        it 'should be that element' do
+          should be(foo)
+        end
       end
     end
 
     context 'with a multiple element path' do
       subject {main_group.exists?('Foo/Bar/Baz')}
       context 'when no elements of the path exist' do
-        it {should be_false}
+        it {should be_nil}
       end
       context 'when part of the path exists' do
         before {main_group.mkdir('Foo').mkdir('Bar')}
-        it {should be_false}
+        it {should be_nil}
       end
       context 'when all of the path exists' do
-        before {main_group.mkdir('Foo').mkdir('Bar').mkdir('Baz')}
-        it {should be_true}
+        let(:last_element) {main_group.mkdir('Foo').mkdir('Bar').mkdir('Baz')}
+        it 'should be the last element of that path' do
+          should be(last_element)
+        end
       end
     end
   end
@@ -91,7 +97,7 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
     end
     context 'when the child exists' do
       let(:the_child) {main_group.mkdir 'Foo'}
-      it 'returns the child' do
+      it 'should be that child' do
         should be(the_child)
       end
     end
