@@ -133,6 +133,9 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
       it 'should have an xref_name containing only the file part' do
         subject.xref_name.should eq 'baz.cpp'
       end
+      it 'should have a path containing only the file part' do
+        subject['path'].should eq 'baz.cpp'
+      end
     end
   end
 
