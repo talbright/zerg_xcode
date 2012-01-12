@@ -48,15 +48,12 @@ class PBXGroup < ZergXcode::XcodeObject
     end
   end
 
-  def exists? path
-    child_with_path path
-  end
-
   def child_with_path path
     path_elements(path).inject(self) do |group, path_element|
       group.child_with_name(path_element) if group
     end
   end
+  alias_method :exists?, :child_with_path
 
   def child_with_name name
     children.detect {|child| child.xref_name == name}
