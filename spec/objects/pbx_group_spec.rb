@@ -152,6 +152,10 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
         subject {main_group.add_file_reference('Slime/file.m')['lastKnownFileType']}
         it {should eq 'sourcecode.c.objc'}
       end
+      context 'when the file has a weird extension' do
+        subject {main_group.add_file_reference('Slime/file.weird')['lastKnownFileType']}
+        it {should eq 'file.weird'}
+      end
     end
   end
 
