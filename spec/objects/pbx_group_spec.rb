@@ -41,7 +41,7 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
     end
   end
 
-  describe '#exists?' do
+  describe 'checking whether a path exists' do
     context 'with a one-element path' do
       subject {main_group.exists?('Foo')}
       context 'when the element does not exist' do
