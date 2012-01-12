@@ -10,6 +10,9 @@ describe FileReferenceBuilder = ZergXcode::FileReferenceBuilder do
     it 'has an xref_name containing only the file part' do
       subject.xref_name.should eq 'baz.cpp'
     end
+    it 'has a name containing only the file part' do
+      subject['name'].should eq 'baz.cpp'
+    end
     it 'has a path containing only the file part' do
       subject['path'].should eq 'baz.cpp'
     end
