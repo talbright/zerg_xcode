@@ -139,6 +139,9 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
       it 'has a fileEncoding of 4' do
         subject['fileEncoding'].should eq 4
       end
+      it 'has a sourceTree of <group>' do
+        subject['sourceTree'].should eq '<group>'
+      end
     end
   end
 

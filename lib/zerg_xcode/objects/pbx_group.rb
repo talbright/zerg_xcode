@@ -70,11 +70,17 @@ class PBXGroup < ZergXcode::XcodeObject
     children.detect {|child| child.xref_name == name}
   end
 
+  # call-seq:
+  #  add_file_reference(path) ⇒ aFileReference
+  #
+  # Creates a file reference in the group tree at _path_ and returns the
+  # created reference.
   def add_file_reference path
     group = mkdir_p(File.dirname(path))
     file_reference = ZergXcode::XcodeObject.new 'isa' => :PBXFileReference,
                                                 'path' => File.basename(path),
-                                                'fileEncoding' => 4
+                                                'fileEncoding' => 4,
+                                                'sourceTree' => '<group>'
     group.children << file_reference
     file_reference
   end
