@@ -47,6 +47,11 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
       context 'when the element does not exist' do
         it {should be_false}
       end
+
+      context 'when the element exists' do
+        before {main_group.create_group 'Foo'}
+        it {should be_true}
+      end
     end
   end
 

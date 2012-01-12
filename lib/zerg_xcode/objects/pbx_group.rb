@@ -40,6 +40,7 @@ class PBXGroup < ZergXcode::XcodeObject
   end
 
   def exists? path
+    !find_group_named(path).nil?
   end
 
   def to_s
