@@ -53,6 +53,21 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
         it {should be_true}
       end
     end
+
+    context 'with a multiple element path' do
+      subject {main_group.exists?('Foo/Bar/Baz')}
+      context 'when no elements of the path exist' do
+        it {should be_false}
+      end
+      context 'when part of the path exists' do
+        before {main_group.create_group('Foo').create_group('Bar')}
+        it {should be_false}
+      end
+      context 'when all of the path exists' do
+        before {main_group.create_group('Foo').create_group('Bar').create_group('Baz')}
+        it {should be_true}
+      end
+    end
   end
 
 end
