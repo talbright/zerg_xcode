@@ -96,6 +96,20 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
     end
   end
 
+  describe '#child_with_name' do
+    subject {main_group.child_with_name 'Foo'}
+    context 'when the child does not exist' do
+      it {should be_nil}
+    end
+    context 'when the child exists' do
+      let(:the_child) {main_group.mkdir 'Foo'}
+      it 'returns the child' do
+        should be(the_child)
+      end
+    end
+
+  end
+
 end
 
 Rspec::Matchers.define :be_found_within do |expected|
