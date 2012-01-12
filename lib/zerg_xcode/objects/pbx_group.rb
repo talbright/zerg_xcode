@@ -11,11 +11,6 @@ module ZergXcode::Objects
 # A group of files (shown as a folder) in an Xcode project.
 class PBXGroup < ZergXcode::XcodeObject
 
-  FILE_TYPES = {
-    '.h' => 'sourcecode.c.h',
-    '.m' => 'sourcecode.c.objc',
-  }
-
   # An array of all immediate children of this node
   attr_reader :children
   def children
@@ -88,12 +83,7 @@ class PBXGroup < ZergXcode::XcodeObject
   # created reference.
   def add_file_reference path
     group = mkdir_p(File.dirname(path))
-    type = FILE_TYPES[File.extname(path)] || "file#{File.extname(path)}"
-    file_reference = ZergXcode::XcodeObject.new 'isa' => :PBXFileReference,
-                                                'path' => File.basename(path),
-                                                'fileEncoding' => 4,
-                                                'sourceTree' => '<group>',
-                                                'lastKnownFileType' => type
+    file_reference = ZergXcode::FileReferenceBuilder.new(path).build
     group.children << file_reference
     file_reference
   end

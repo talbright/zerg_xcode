@@ -25,6 +25,7 @@ require 'zerg_xcode/objects/pbx_target_dependency.rb'
 require 'zerg_xcode/objects/xc_configuration_list.rb'
 require 'zerg_xcode/plugins/core/core.rb'
 
+require 'zerg_xcode/file_reference_builder.rb'
 require 'zerg_xcode/paths.rb'
 require 'zerg_xcode/shortcuts.rb'
 
