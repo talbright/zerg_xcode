@@ -56,6 +56,15 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
     it 'creates the second part of the path' do
       main_group.exists?('Foo/Bar').should be_true
     end
+    context 'when the first part of the path exists' do
+      before do
+        @first = main_group.mkdir 'First'
+        @second = main_group.mkdir_p 'First/Second'
+      end
+      it 'reuses the first part' do
+        @second.should be_found_within @first
+      end
+    end
   end
 
   context 'when checking whether a path exists' do
