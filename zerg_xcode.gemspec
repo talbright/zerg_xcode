@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "zerg_xcode"
-  s.version = "0.4.0"
+  s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Victor Costan"]
-  s.date = "2012-01-03"
+  s.date = "2012-01-12"
   s.email = "victor@zergling.net"
   s.executables = ["zerg-xcode"]
   s.extra_rdoc_files = [
@@ -74,13 +74,13 @@ Gem::Specification.new do |s|
     "spec/fixtures/project.pbxproj.compat",
     "spec/id_generator_spec.rb",
     "spec/lexer_spec.rb",
+    "spec/objects/pbx_group_spec.rb",
     "spec/parser_spec.rb",
     "spec/paths_spec.rb",
     "spec/shortcuts_spec.rb",
     "test/objects/pbx_build_file_test.rb",
     "test/objects/pbx_build_phase_test.rb",
     "test/objects/pbx_container_item_proxy_test.rb",
-    "test/objects/pbx_group_test.rb",
     "test/objects/pbx_native_target_test.rb",
     "test/objects/pbx_project_test.rb",
     "test/objects/pbx_target_dependency_test.rb",
