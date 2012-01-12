@@ -121,41 +121,19 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
   end
 
   describe '#add_file_reference' do
-    before {main_group.add_file_reference 'Foo/Bar/baz.cpp'}
+    let(:builder) {double 'FileReferenceBuilder'}
+    let(:reference) {double 'PBXFileReference', :xref_name => 'baz.cpp'}
+
+    before do
+      ZergXcode::FileReferenceBuilder.should_receive(:new).and_return(builder)
+      builder.should_receive(:build).and_return(reference)
+      main_group.add_file_reference 'Foo/Bar/baz.cpp'
+    end
     it 'creates the parent group' do
       main_group.child_with_path('Foo/Bar').should be_kind_of(ZergXcode::Objects::PBXGroup)
     end
-    describe 'the added file reference object' do
-      subject {main_group.child_with_path 'Foo/Bar/baz.cpp'}
-      it 'is a PBXFileReference' do
-        subject['isa'].should eq :PBXFileReference
-      end
-      it 'has an xref_name containing only the file part' do
-        subject.xref_name.should eq 'baz.cpp'
-      end
-      it 'has a path containing only the file part' do
-        subject['path'].should eq 'baz.cpp'
-      end
-      it 'has a fileEncoding of 4' do
-        subject['fileEncoding'].should eq 4
-      end
-      it 'has a sourceTree of <group>' do
-        subject['sourceTree'].should eq '<group>'
-      end
-    end
-    describe "the added file reference's lastKnownFileType" do
-      context 'when the file has a .h extension' do
-        subject {main_group.add_file_reference('Slime/file.h')['lastKnownFileType']}
-        it {should eq 'sourcecode.c.h'}
-      end
-      context 'when the file has a .m extension' do
-        subject {main_group.add_file_reference('Slime/file.m')['lastKnownFileType']}
-        it {should eq 'sourcecode.c.objc'}
-      end
-      context 'when the file has a weird extension' do
-        subject {main_group.add_file_reference('Slime/file.weird')['lastKnownFileType']}
-        it {should eq 'file.weird'}
-      end
+    it 'adds the reference to the parent group' do
+      main_group.child_with_path('Foo/Bar/baz.cpp').should be(reference)
     end
   end
 
