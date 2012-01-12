@@ -49,13 +49,9 @@ class PBXGroup < ZergXcode::XcodeObject
   end
 
   def exists? path
-    current_group = self
-    path_elements(path).each do |path_element|
-      next_group = current_group.child_named path_element
-      return false unless next_group
-      current_group = next_group
+    path_elements(path).inject(self) do |group, path_element|
+      group.child_named(path_element) if group
     end
-    true
   end
 
   def child_named name
