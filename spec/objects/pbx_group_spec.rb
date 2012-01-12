@@ -48,12 +48,13 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
     end
   end
 
-  Rspec::Matchers.define :be_found_within do |expected|
-    match do |actual| 
-      expected.find_group_named(actual.xref_name).equal? actual 
+  context 'when creating a new group recursively' do
+    before {main_group.mkdir_p 'Foo/Bar'}
+    it 'creates the first part of the path' do
+      main_group.exists?('Foo').should be_true
     end
-    failure_message_for_should do |actual|
-      "expected #{expected.xref_name} to be found within #{actual.xref_name}"
+    it 'creates the second part of the path' do
+      main_group.exists?('Foo/Bar').should be_true
     end
   end
 
@@ -86,5 +87,14 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
     end
   end
 
+end
+
+Rspec::Matchers.define :be_found_within do |expected|
+  match do |actual| 
+    expected.find_group_named(actual.xref_name).equal? actual 
+  end
+  failure_message_for_should do |actual|
+    "expected #{expected.xref_name} to be found within #{actual.xref_name}"
+  end
 end
 
