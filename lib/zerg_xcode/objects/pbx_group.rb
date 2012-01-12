@@ -38,10 +38,14 @@ class PBXGroup < ZergXcode::XcodeObject
     group
   end
 
+  def mkdir_f name
+    child_named(name) || mkdir(name)
+  end
+
   def mkdir_p path
     current_group = self
     path.split('/').each do |path_element|
-      current_group = current_group.child_named(path_element) || current_group.mkdir(path_element)
+      current_group = current_group.mkdir_f(path_element)
     end
     current_group
   end
