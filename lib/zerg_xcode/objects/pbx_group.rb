@@ -53,6 +53,7 @@ class PBXGroup < ZergXcode::XcodeObject
       group.child_with_name(path_element) if group
     end
   end
+  alias_method :exist?, :child_with_path
   alias_method :exists?, :child_with_path
 
   def child_with_name name
