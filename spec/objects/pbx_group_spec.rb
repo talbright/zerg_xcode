@@ -33,6 +33,19 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
       end
       it { should be_found_within main_group } 
     end
+    context 'when the group already exists' do
+      before {main_group.mkdir 'New Group'}
+      describe 'the invocation' do
+        subject {lambda {main_group.mkdir 'New Group'}}
+        it {should raise_error(Errno::EEXIST)}
+      end
+    end
+    context 'using a group name with a slash' do
+      describe 'the invocation' do
+        subject {lambda {main_group.mkdir 'Foo/Bar'}}
+        it {should raise_error(Errno::ENOTNAM)}
+      end
+    end
   end
 
   Rspec::Matchers.define :be_found_within do |expected|
