@@ -21,9 +21,14 @@ class FileReferenceBuilder
   end
 
   def last_known_file_type
-    FILE_TYPES[File.extname(@path)] || "file#{File.extname(@path)}"
+    FILE_TYPES[extension] || "file#{extension}"
   end
   private :last_known_file_type
+
+  def extension
+    File.extname @path
+  end
+  private :extension
 
 end
 
