@@ -38,6 +38,23 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
     end
   end
 
+  describe '#mkdir_f' do
+    context 'when the group already exists' do
+      let(:the_group) {main_group.mkdir 'Foo'}
+      subject {main_group.mkdir_f 'Foo'}
+      it 'should be that group' do
+        should be(the_group)
+      end
+    end
+    context 'when the group does not exist' do
+      subject {main_group.mkdir_f 'Foo'}
+      it 'should create it' do
+        subject.xref_name.should eq 'Foo'
+        subject.should be_found_within main_group
+      end
+    end
+  end
+
   describe '#mkdir_p' do
     before {main_group.mkdir_p 'Foo/Bar'}
     it 'creates the first part of the path' do
