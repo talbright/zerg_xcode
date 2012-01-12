@@ -39,7 +39,7 @@ class PBXGroup < ZergXcode::XcodeObject
   end
 
   def mkdir_f name
-    child_named(name) || mkdir(name)
+    child_with_name(name) || mkdir(name)
   end
 
   def mkdir_p path
@@ -50,11 +50,11 @@ class PBXGroup < ZergXcode::XcodeObject
 
   def exists? path
     path_elements(path).inject(self) do |group, path_element|
-      group.child_named(path_element) if group
+      group.child_with_name(path_element) if group
     end
   end
 
-  def child_named name
+  def child_with_name name
     children.detect {|child| child.xref_name == name}
   end
 
