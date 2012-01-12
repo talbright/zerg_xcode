@@ -83,11 +83,16 @@ class PBXGroup < ZergXcode::XcodeObject
   # created reference.
   def add_file_reference path
     group = mkdir_p(File.dirname(path))
+    type = if path =~ /\.h$/i
+             'sourcecode.c.h'
+           else
+             'sourcecode.c.objc'
+           end
     file_reference = ZergXcode::XcodeObject.new 'isa' => :PBXFileReference,
                                                 'path' => File.basename(path),
                                                 'fileEncoding' => 4,
                                                 'sourceTree' => '<group>',
-                                                'lastKnownFileType' => 'sourcecode.c.h'
+                                                'lastKnownFileType' => type
     group.children << file_reference
     file_reference
   end

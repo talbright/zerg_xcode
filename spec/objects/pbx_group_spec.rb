@@ -148,6 +148,10 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
         subject {main_group.add_file_reference('Slime/file.h')['lastKnownFileType']}
         it {should eq 'sourcecode.c.h'}
       end
+      context 'when the file has a .m extension' do
+        subject {main_group.add_file_reference('Slime/file.m')['lastKnownFileType']}
+        it {should eq 'sourcecode.c.objc'}
+      end
     end
   end
 
