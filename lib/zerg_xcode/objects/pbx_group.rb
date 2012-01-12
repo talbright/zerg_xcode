@@ -12,24 +12,6 @@ module ZergXcode::Objects
 class PBXGroup < ZergXcode::XcodeObject
 
   # call-seq:
-  #  find_group_named(name) ⇒ aChild
-  #
-  # Recursively searches for a child named _name_.  The first child found (in
-  # depth-first order) is returned.
-  def find_group_named(group_name)
-    self['children'].each do |child|
-      if child.isa == :PBXGroup
-        if child.xref_name == group_name
-          return child
-        elsif grandchild = child.find_group_named(group_name)
-          return grandchild
-        end
-      end
-    end
-    return nil
-  end
-  
-  # call-seq:
   #  mkdir(name) ⇒ aChild
   #
   # Creates a child group with name _name_.  Raises Errno::EEXIST if a child

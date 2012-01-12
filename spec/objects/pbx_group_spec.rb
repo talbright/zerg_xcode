@@ -9,18 +9,6 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
     it { should be_a PBXGroup }
   end
   
-  describe "finding a group by name" do
-    context "when the group exists" do
-      subject { main_group.find_group_named 'Classes' }
-      it { should_not be_nil }
-      it { should be_a(PBXGroup) }
-      it 'should find the group by name' do
-        subject.xref_name.should eq 'Classes'
-      end
-      it { should be_found_within main_group }
-    end
-  end
-
   context 'when creating a new group' do
     describe 'the new group' do
       subject { main_group.mkdir 'New Group' }

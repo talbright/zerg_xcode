@@ -81,11 +81,4 @@ class PBXProjectTest < Test::Unit::TestCase
     assert_equal 'PBXProject', project.xref_name
   end
   
-  def test_find_group_named
-    project = ZergXcode.load('spec/fixtures/project.pbxproj')
-    found_group = project.find_group_named("Classes")
-    assert_not_nil found_group
-    assert_equal PBXGroup, found_group.class
-    assert_equal "Classes", found_group.xref_name
-  end
 end
