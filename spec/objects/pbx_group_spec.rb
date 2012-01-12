@@ -121,9 +121,13 @@ describe PBXGroup = ZergXcode::Objects::PBXGroup do
   end
 
   describe '#add_file_reference' do
+    before {main_group.add_file_reference 'Foo/Bar/baz.cpp'}
     it 'creates the parent group' do
-      main_group.add_file_reference 'Foo/Bar/baz.cpp'
       main_group.child_with_path('Foo/Bar').should be_kind_of(ZergXcode::Objects::PBXGroup)
+    end
+    describe 'the added file reference object' do
+      subject {main_group.child_with_path 'Foo/Bar/baz.cpp'}
+      it {should be_kind_of(ZergXcode::XcodeObject)}
     end
   end
 

@@ -71,8 +71,11 @@ class PBXGroup < ZergXcode::XcodeObject
   end
 
   def add_file_reference path
-    puts "Making: #{File.dirname(path)}"
-    mkdir_p(File.dirname(path))
+    group = mkdir_p(File.dirname(path))
+    file_reference = ZergXcode::XcodeObject.new 'isa' => :PBXFileReference,
+                                                'name' => File.basename(path)
+    group.children << file_reference
+    file_reference
   end
 
   # :nodoc:
