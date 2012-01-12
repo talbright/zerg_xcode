@@ -27,14 +27,13 @@ class PBXGroup < ZergXcode::XcodeObject
     self['children']
   end
   
-  def mkdir(path_name, group_name=nil, source_tree='<group>')
-    group_name = group_name || path_name
-    raise Errno::ENOTNAM if path_name =~ /\//
-    raise Errno::EEXIST if exists? path_name
-    group = ZergXcode::Objects::PBXGroup.new 'name' => group_name, 
-                                             'path' => path_name, 
+  def mkdir name
+    raise Errno::ENOTNAM if name =~ /\//
+    raise Errno::EEXIST if exists? name
+    group = ZergXcode::Objects::PBXGroup.new 'name' => name, 
+                                             'path' => name, 
                                              'children' => [], 
-                                             'sourceTree' => source_tree
+                                             'sourceTree' => '<group>'
     self.children << group
     group
   end
