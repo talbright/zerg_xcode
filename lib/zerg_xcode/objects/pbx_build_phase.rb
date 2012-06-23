@@ -19,6 +19,6 @@ class PBXBuildPhase < ZergXcode::XcodeObject
              'buildActionMask' => '2147483647',
              'runOnlyForDeploymentPostprocessing' => '0' 
   end
-end  # class ZergXcode::Objects::PBXBuildPhase
+end
 
-end  # namespace ZergXcode::Objects
+end
