@@ -30,6 +30,6 @@ class PBXContainerItemProxy < ZergXcode::XcodeObject
   def xref_name
     self['remoteInfo']
   end  
-end  # class ZergXcode::Objects::PBXContainerItemProxy
+end
 
-end  # namespace ZergXcode::Objects
+end

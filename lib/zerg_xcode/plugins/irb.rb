@@ -30,7 +30,6 @@ END
           "Use the 'quit' command if you're here by mistake.\n"
     IRB.start __FILE__
   end
-end  # class ZergXcode::Plugins::Irb
+end
 
-end  # namespace ZergXcode::Plugins
-
+end

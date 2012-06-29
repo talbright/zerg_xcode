@@ -35,6 +35,6 @@ END
       [file[:path], file[:object]['lastKnownFileType']]
     end
   end  
-end  # class ZergXcode::Plugins::Ls
+end
 
-end  # namespace ZergXcode::Plugins
+end

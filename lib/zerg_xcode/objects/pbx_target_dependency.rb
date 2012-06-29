@@ -27,6 +27,6 @@ class PBXTargetDependency < ZergXcode::XcodeObject
   def xref_name
     target.xref_name
   end
-end  # class ZergXcode::Objects::PBXTargetDependency
+end
 
-end  # namespace ZergXcode::Objects
+end

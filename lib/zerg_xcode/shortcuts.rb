@@ -27,4 +27,4 @@ module ZergXcode
   def self.plugin(plugin_name)
     ZergXcode::Plugins.get(plugin_name)
   end
-end  # namespace ZergXcode
+end

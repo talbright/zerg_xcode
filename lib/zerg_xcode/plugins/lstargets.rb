@@ -37,7 +37,6 @@ END
       [target['name'], target['productName'], target['productType']]
     end
   end  
-end  # class ZergXcode::Plugins::Lstargets
+end
 
-end  # namespace ZergXcode::Plugins
-
+end

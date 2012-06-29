@@ -38,6 +38,6 @@ END
     print helpstr
     helpstr
   end  
-end  # class ZergXcode::Plugins::Help
+end
 
-end  # namespace ZergXcode::Plugins
+end

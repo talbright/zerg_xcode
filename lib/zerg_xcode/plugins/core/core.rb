@@ -40,6 +40,6 @@ module Plugins
   def self.help(plugin_name)
     self.get(plugin_name).help
   end
-end  # module ZergXcode::Plugins
+end
 
-end  # namespace ZergXcode
+end

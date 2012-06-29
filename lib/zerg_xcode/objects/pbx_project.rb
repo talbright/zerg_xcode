@@ -82,7 +82,7 @@ class PBXProject < ZergXcode::XcodeObject
       end
       return path
     end
-  end  # module ZergXcode::Objects::PBXProject::FileVisitor
-end  # class ZergXcode::Objects::PBXProject
+  end
+end
 
-end  # namespace class ZergXcode::Objects
+end

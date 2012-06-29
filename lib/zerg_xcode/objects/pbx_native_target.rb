@@ -26,6 +26,6 @@ class PBXNativeTarget < ZergXcode::XcodeObject
     end
     files
   end
-end  # class ZergXcode::Objects::PBXNativeTarget
+end
 
-end  # namespace class ZergXcode::Objects
+end

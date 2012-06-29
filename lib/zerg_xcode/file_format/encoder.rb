@@ -48,6 +48,6 @@ module Encoder
   def self.encode_indentation(indentation)
     "\t" * indentation
   end
-end  # module ZergXcode::Encoder
+end
 
-end  # namespace ZergXcode
+end

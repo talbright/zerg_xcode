@@ -289,6 +289,6 @@ END
     mappings
   end
   private :cross_reference_enumerables  
-end  # class ZergXcode::Plugins::Import
+end
 
-end  # namespace ZergXcode::Plugins
+end

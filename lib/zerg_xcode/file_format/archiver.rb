@@ -71,6 +71,6 @@ module Archiver
              'objects' => objects }
   end
   
-end  # module ZergXcode::Archiver
+end
 
-end  # namespace ZergXcode
+end

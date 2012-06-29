@@ -46,6 +46,6 @@ module Runner
       return (/\*\* .* SUCCEEDED \*\*/ =~ output) ? true : false
     end
   end
-end  # module ZergXcode::Builder::Sdk
+end
 
-end  # namespace ZergXcode::Builder
+end

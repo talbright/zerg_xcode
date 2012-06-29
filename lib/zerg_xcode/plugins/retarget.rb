@@ -94,6 +94,6 @@ END
       end
     end
   end
-end  # class ZergXcode::Plugins::Retarget
+end
 
-end  # namespace ZergXcode::Plugins
+end

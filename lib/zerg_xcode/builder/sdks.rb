@@ -29,6 +29,6 @@ module Sdk
     end
     @all
   end
-end  # module ZergXcode::Builder::Sdk
+end
 
-end  # namespace ZergXcode::Builder
+end

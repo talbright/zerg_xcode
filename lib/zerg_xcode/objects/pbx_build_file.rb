@@ -44,7 +44,7 @@ class PBXBuildFile < ZergXcode::XcodeObject
   def xref_name
     self['fileRef'].xref_name
   end  
-end  # class ZergXcode::Objects:PBXBuildFile
+end
 
-end  # namespace ZergXcode::Objects
+end
 

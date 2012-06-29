@@ -192,6 +192,6 @@ class XcodeObject
   def copy_metadata(source)
     self.archive_id, self.version = source.archive_id, source.version 
   end  
-end  # class ZergXcode::XcodeObject
+end
 
-end  # namespace ZergXcode
+end

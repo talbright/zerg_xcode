@@ -129,6 +129,6 @@ END
           (setting.kind_of?(Enumerable) && setting.include?(option)))
     end
   end
-end  # class ZergXcode::Plugins::Addlibrary
+end
 
-end  # namespace ZergXcode::Plugins
+end
