@@ -12,7 +12,7 @@ require 'zerg_xcode/file_format/parser.rb'
 require 'zerg_xcode/file_format/scan_buffer.rb'
 
 require 'zerg_xcode/builder/runner.rb'
-require 'zerg_xcode/builder/sdks.rb'
+require 'zerg_xcode/builder/sdk.rb'
 
 require 'zerg_xcode/objects/xcode_object.rb'
 require 'zerg_xcode/objects/pbx_build_file.rb'
