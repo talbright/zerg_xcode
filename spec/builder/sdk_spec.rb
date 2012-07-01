@@ -16,7 +16,7 @@ iOS Simulator SDKs:
 EOF
 
       all_sdks = ZergXcode::Builder::Sdk.all
-      macsdk = all_sdks.detect{|sdk| sdk[:arg] == 'macosx10.6'}
+      macsdk = all_sdks.detect{|sdk| sdk.arg == 'macosx10.6'}
       macsdk.should_not be_nil
     end
   end

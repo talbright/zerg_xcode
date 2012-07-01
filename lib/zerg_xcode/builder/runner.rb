@@ -38,7 +38,7 @@ module Runner
     #       and to accomodate projects with bad dependencies
     command = 'xcodebuild -project ' +
         File.dirname(project.source_filename).inspect +
-        %Q| -sdk #{sdk[:arg]} -configuration #{configuration.inspect} | +
+        %Q| -sdk #{sdk.arg} -configuration #{configuration.inspect} | +
         '-alltargets ' + options.map { "#{k}=#{v}".inspect }.join(' ') + ' ' +
         verb.inspect + ' 2>&1'
     begin
