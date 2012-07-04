@@ -11,6 +11,7 @@ require 'zerg_xcode/file_format/lexer.rb'
 require 'zerg_xcode/file_format/parser.rb'
 require 'zerg_xcode/file_format/scan_buffer.rb'
 
+require 'zerg_xcode/builder/build_command_maker.rb'
 require 'zerg_xcode/builder/runner.rb'
 require 'zerg_xcode/builder/sdk.rb'
 
