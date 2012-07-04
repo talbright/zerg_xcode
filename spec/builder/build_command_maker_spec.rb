@@ -33,6 +33,10 @@ describe BuildCommandMaker = ZergXcode::Builder::BuildCommandMaker do
     it 'should have the verb last' do
       subject.last.should == verb
     end
+
+    it 'does not parellelize builds, in case ordering is brittle' do
+      subject.should_not include('-parallelizeTargets')
+    end
   end
 
 end

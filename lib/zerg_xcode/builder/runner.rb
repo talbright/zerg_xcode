@@ -35,8 +35,6 @@ module Runner
   #
   # Returns true if the action suceeded, and false otherwise.
   def self.action(project, sdk, configuration, options, verb)
-    # NOTE: not using -parallelizeTargets so the command line is less brittle,
-    #       and to accomodate projects with bad dependencies
     build_command_maker = BuildCommandMaker.new(project, sdk, configuration, options)
     command = build_command_maker.make_command(verb).shelljoin + " 2>&1"
     begin
