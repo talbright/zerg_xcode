@@ -15,7 +15,6 @@ class PBXBuildFileTest < Test::Unit::TestCase
   end
   
   def test_attributes
-    assert_equal 'main.m', @build_file.filename
     assert_equal 'sourcecode.c.objc', @build_file.file_type
     
     big_project = ZergXcode.load('spec/fixtures/ZergSupport')
