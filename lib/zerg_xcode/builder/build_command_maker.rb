@@ -10,9 +10,13 @@ class BuildCommandMaker
   end
 
   def make(verb)
-    ['xcodebuild', '-project', File.dirname(@project.source_filename), '-sdk', @sdk.arg, '-configuration', @configuration, '-alltargets'] +
-    formatted_options +
-    [verb]
+    cmd = ['xcodebuild']
+    cmd += ['-project', File.dirname(@project.source_filename)]
+    cmd += ['-sdk', @sdk.arg]
+    cmd += ['-configuration', @configuration]
+    cmd += ['-alltargets']
+    cmd += formatted_options
+    cmd += [verb]
   end
 
   def formatted_options
