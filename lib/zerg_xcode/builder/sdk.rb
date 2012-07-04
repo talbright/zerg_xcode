@@ -19,8 +19,8 @@ class Sdk
   end
   
   # All the SDKs installed.
-  def self.all
-    output = output_of_xcodebuild_showsdks
+  def self.all(command_runner = CommandRunner.new)
+    output = command_runner.run(['xcodebuild', '-showsdks'])
     sdks = []
     group = ''
     output.split(/\n/).each do |line|
@@ -32,11 +32,6 @@ class Sdk
       end
     end
     sdks
-  end
-
-private
-  def self.output_of_xcodebuild_showsdks
-    `xcodebuild -showsdks`.to_s
   end
 
 end
