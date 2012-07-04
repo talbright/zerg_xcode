@@ -17,6 +17,7 @@ class BuildCommandMaker
     add_option '-alltargets'
     add_option *formatted_options
     add_option verb
+    return @command
   end
 
   def start_xcodebuild_command
