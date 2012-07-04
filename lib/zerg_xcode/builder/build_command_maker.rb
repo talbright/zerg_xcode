@@ -20,12 +20,12 @@ class BuildCommandMaker
   end
 
   def start_xcodebuild_command
-    @cmd = ['xcodebuild']
+    @command = ['xcodebuild']
   end
   private :start_xcodebuild_command
 
   def add_option *args
-    @cmd += args
+    @command += args
   end
   private :add_option
 
