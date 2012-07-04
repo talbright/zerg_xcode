@@ -16,4 +16,9 @@ describe CommandRunner = ZergXcode::Builder::CommandRunner do
     Kernel.should_receive(:`).and_return("foo")
     subject.run(['ls', '/']).should == 'foo'
   end
+
+  it "escapes spaces" do
+    Kernel.should_receive(:`).with('ls Hello,\\ World 2>&1')
+    subject.run(['ls', 'Hello, World'])
+  end
 end
