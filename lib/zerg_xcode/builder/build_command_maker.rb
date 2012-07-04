@@ -7,8 +7,8 @@ class BuildCommandMaker
     @configuration = configuration
   end
 
-  def make
-    ['xcodebuild', '-sdk', @sdk.arg, '-configuration', @configuration, '-alltargets']
+  def make(verb)
+    ['xcodebuild', '-sdk', @sdk.arg, '-configuration', @configuration, '-alltargets', verb]
   end
 end
 
