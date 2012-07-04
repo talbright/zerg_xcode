@@ -37,10 +37,8 @@ module Runner
   def self.action(project, sdk, configuration, options, verb, command_runner = CommandRunner.new)
     build_command_maker = BuildCommandMaker.new(project, sdk, configuration, options)
     command = build_command_maker.make_command(verb)
-    begin
-      output = command_runner.run(command)
-      return (/\*\* .* SUCCEEDED \*\*/ =~ output) ? true : false
-    end
+    output = command_runner.run(command)
+    /\*\* .* SUCCEEDED \*\*/ =~ output
   end
 end
 
