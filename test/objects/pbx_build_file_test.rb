@@ -35,10 +35,6 @@ class PBXBuildFileTest < Test::Unit::TestCase
     end
   end
   
-  def test_xref_name
-    assert_equal 'main.m', @build_file.xref_name
-  end
-  
   def test_for
     new_build_file = PBXBuildFile.for @build_file['fileRef']
     assert_equal @build_file._attr_hash, new_build_file._attr_hash

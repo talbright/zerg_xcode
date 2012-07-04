@@ -10,12 +10,16 @@ describe PBXBuildFile = ZergXcode::Objects::PBXBuildFile do
 
     it {should be_kind_of(PBXBuildFile)}
 
-    it 'should be named "main.m"' do
+    it 'is named "main.m"' do
       subject.filename.should == 'main.m' 
     end
 
-    it 'should have type "sourcecode.c.objc"' do
+    it 'has type "sourcecode.c.objc"' do
       subject.file_type.should == 'sourcecode.c.objc'
+    end
+
+    it 'has an xref_name matching the filename' do
+      subject.xref_name.should == subject.filename
     end
   end
 
