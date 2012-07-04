@@ -2,14 +2,15 @@
 module ZergXcode::Builder
 
 class BuildCommandMaker
-  def initialize(sdk, configuration, options)
+  def initialize(project, sdk, configuration, options)
+    @project = project
     @sdk = sdk
     @configuration = configuration
     @options = options
   end
 
   def make(verb)
-    ['xcodebuild', '-sdk', @sdk.arg, '-configuration', @configuration, '-alltargets'] +
+    ['xcodebuild', '-project', File.dirname(@project.source_filename), '-sdk', @sdk.arg, '-configuration', @configuration, '-alltargets'] +
     formatted_options +
     [verb]
   end
