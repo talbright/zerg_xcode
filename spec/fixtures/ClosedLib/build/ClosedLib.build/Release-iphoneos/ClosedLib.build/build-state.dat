@@ -1,0 +1,111 @@
+TClosedLib
+v5
+r1
+cCheck dependencies
+cCpHeader ClosedNative.h build/Release-iphoneos/usr/local/include/ClosedNative.h
+cProcessPCH /var/folders/_7/bqndftw16pgc956b_m4r40800000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClosedLib_Prefix-gqlnuxjucyibewdbiyhivxlrtstq/ClosedLib_Prefix.pch.pth ClosedLib_Prefix.pch normal armv7 c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/ClosedLib.build/Release-iphoneos/ClosedLib.build/Objects-normal/armv7/ClosedNative.o /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/ClosedNative.c normal armv7 c com.apple.compilers.llvm.clang.1_0.compiler
+cLibtool /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/Release-iphoneos/libClosedLib.a normal armv7
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk
+c000000004F453DF20000000000000110
+t1329937906
+s272
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c000000004FDD1034000000000052C940
+t1339887668
+s5425472
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
+c000000004FDD10330000000000001534
+t1339887667
+s5428
+
+N/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/ClosedLib_Prefix.pch
+c000000004EE9070500000000000000BC
+t1323894533
+s188
+i<Foundation/Foundation.h>
+
+N/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/ClosedNative.c
+c000000004EE907050000000000000188
+t1323894533
+s392
+
+N/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/ClosedNative.h
+c000000004EE9070500000000000000D4
+t1323894533
+s212
+
+N/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/Objects-normal/armv7/ClosedLib.LinkFileList
+c000000004FF39C4F000000000000008F
+t1341365327
+s143
+
+N/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/Objects-normal/armv7/ClosedNative.o
+t2
+s0
+
+N/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/Release-iphoneos/libClosedLib.a
+t2
+s0
+
+N/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/Release-iphoneos/usr/local/include/ClosedNative.h
+t2
+s0
+
+N/var/folders/_7/bqndftw16pgc956b_m4r40800000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClosedLib_Prefix-gqlnuxjucyibewdbiyhivxlrtstq/ClosedLib_Prefix.pch.pth
+t2
+s0
+
+CCheck dependencies
+r0
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies61de67cfd3a3b541^d36b8fcfd3a3b541^---0#1#0#--18"Check dependencies36"3F3307A9-D9E3-4490-AC45-F3D966ADCAB5-
+
+CCompileC build/ClosedLib.build/Release-iphoneos/ClosedLib.build/Objects-normal/armv7/ClosedNative.o /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/ClosedNative.c normal armv7 c com.apple.compilers.llvm.clang.1_0.compiler
+s363058127.628155
+e363058127.666213
+r1
+xCompileC
+xbuild/ClosedLib.build/Release-iphoneos/ClosedLib.build/Objects-normal/armv7/ClosedNative.o
+x/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/ClosedNative.c
+xnormal
+xarmv7
+xc
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection74"Compile /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/ClosedNative.c26fea0cfd3a3b541^868daacfd3a3b541^---0#0#0#-19%DVTDocumentLocation2@82"file://localhost/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/ClosedNative.c0000000000000000^3375"CompileC build/ClosedLib.build/Release-iphoneos/ClosedLib.build/Objects-normal/armv7/ClosedNative.o ClosedNative.c normal armv7 c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/jason/bin:/usr/local/bin:/Users/jason/j64-701/bin:/usr/local/msp430/bin:/opt/android/tools:/opt/android/platform-tools:/Users/jason/.rvm/gems/ruby-1.9.3-p0@zerg_xcode/bin:/Users/jason/.rvm/gems/ruby-1.9.3-p0@global/bin:/Users/jason/.rvm/rubies/ruby-1.9.3-p0/bin:/Users/jason/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin:/Users/jason/bin:/Users/jason/j64-701/bin:/usr/local/msp430/bin:/opt/android/tools:/opt/android/platform-tools"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c -arch armv7 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk -Wdeprecated-declarations -g -Wno-conversion -Wno-sign-conversion -mthumb -miphoneos-version-min=5.1 -iquote /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/ClosedLib-generated-files.hmap -I/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/ClosedLib-own-target-headers.hmap -I/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/ClosedLib-all-target-headers.hmap -iquote /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/ClosedLib-project-headers.hmap -I/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/Release-iphoneos/include -I/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/DerivedSources/armv7 -I/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/DerivedSources -F/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/Release-iphoneos -include /var/folders/_7/bqndftw16pgc956b_m4r40800000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClosedLib_Prefix-gqlnuxjucyibewdbiyhivxlrtstq/ClosedLib_Prefix.pch -MMD -MT dependencies -MF /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/Objects-normal/armv7/ClosedNative.d --serialize-diagnostics /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/Objects-normal/armv7/ClosedNative.dia -c /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/ClosedNative.c -o /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/Objects-normal/armv7/ClosedNative.o36"332E7CFB-C452-457C-8745-B44F08E6610E-
+
+CCpHeader ClosedNative.h build/Release-iphoneos/usr/local/include/ClosedNative.h
+s363058127.577285
+e363058127.584750
+r1
+xCpHeader
+xClosedNative.h
+xbuild/Release-iphoneos/usr/local/include/ClosedNative.h
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection60"Copy build/Release-iphoneos/usr/local/include/ClosedNative.hf2ef93cfd3a3b541^d5b295cfd3a3b541^---0#0#0#-19%DVTDocumentLocation2@123"file://localhost/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/Release-iphoneos/usr/local/include/ClosedNative.h0000000409041042^1174"CpHeader ClosedNative.h build/Release-iphoneos/usr/local/include/ClosedNative.h    cd /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/jason/bin:/usr/local/bin:/Users/jason/j64-701/bin:/usr/local/msp430/bin:/opt/android/tools:/opt/android/platform-tools:/Users/jason/.rvm/gems/ruby-1.9.3-p0@zerg_xcode/bin:/Users/jason/.rvm/gems/ruby-1.9.3-p0@global/bin:/Users/jason/.rvm/rubies/ruby-1.9.3-p0/bin:/Users/jason/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin:/Users/jason/bin:/Users/jason/j64-701/bin:/usr/local/msp430/bin:/opt/android/tools:/opt/android/platform-tools"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-debug-symbols -resolve-src-symlinks -strip-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/ClosedNative.h /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/Release-iphoneos/usr/local/include36"53D2F4B4-2088-41B6-A951-86D330E59E2A-
+
+CLibtool /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/Release-iphoneos/libClosedLib.a normal armv7
+s363058127.673046
+e363058127.681769
+r1
+xLibtool
+x/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/Release-iphoneos/libClosedLib.a
+xnormal
+xarmv7
+o/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: -dynamic not specified the following flags are invalid: -ObjC 
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection58"Libtool build/Release-iphoneos/libClosedLib.a normal armv71e6daccfd3a3b541^3e96aecfd3a3b541^-159"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: -dynamic not specified the following flags are invalid: -ObjC -0#0#0#--1394"Libtool build/Release-iphoneos/libClosedLib.a normal armv7    cd /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib    setenv IPHONEOS_DEPLOYMENT_TARGET 5.1    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/jason/bin:/usr/local/bin:/Users/jason/j64-701/bin:/usr/local/msp430/bin:/opt/android/tools:/opt/android/platform-tools:/Users/jason/.rvm/gems/ruby-1.9.3-p0@zerg_xcode/bin:/Users/jason/.rvm/gems/ruby-1.9.3-p0@global/bin:/Users/jason/.rvm/rubies/ruby-1.9.3-p0/bin:/Users/jason/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin:/Users/jason/bin:/Users/jason/j64-701/bin:/usr/local/msp430/bin:/opt/android/tools:/opt/android/platform-tools"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool -static -arch_only armv7 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk -L/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/Release-iphoneos -filelist /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/Objects-normal/armv7/ClosedLib.LinkFileList -ObjC -framework Foundation -o /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/Release-iphoneos/libClosedLib.a36"78C02281-ECBD-4294-AEEC-D27FC0C044E1-
+
+CProcessPCH /var/folders/_7/bqndftw16pgc956b_m4r40800000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClosedLib_Prefix-gqlnuxjucyibewdbiyhivxlrtstq/ClosedLib_Prefix.pch.pth ClosedLib_Prefix.pch normal armv7 c com.apple.compilers.llvm.clang.1_0.compiler
+s363058127.593579
+e363058127.620527
+r1
+xProcessPCH
+x/var/folders/_7/bqndftw16pgc956b_m4r40800000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClosedLib_Prefix-gqlnuxjucyibewdbiyhivxlrtstq/ClosedLib_Prefix.pch.pth
+xClosedLib_Prefix.pch
+xnormal
+xarmv7
+xc
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection31"Precompile ClosedLib_Prefix.pchd82b98cfd3a3b541^34da9ecfd3a3b541^---0#0#0#-19%DVTDocumentLocation2@88"file://localhost/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/ClosedLib_Prefix.pch0000000000000000^3362"ProcessPCH /var/folders/_7/bqndftw16pgc956b_m4r40800000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClosedLib_Prefix-gqlnuxjucyibewdbiyhivxlrtstq/ClosedLib_Prefix.pch.pth ClosedLib_Prefix.pch normal armv7 c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/jason/bin:/usr/local/bin:/Users/jason/j64-701/bin:/usr/local/msp430/bin:/opt/android/tools:/opt/android/platform-tools:/Users/jason/.rvm/gems/ruby-1.9.3-p0@zerg_xcode/bin:/Users/jason/.rvm/gems/ruby-1.9.3-p0@global/bin:/Users/jason/.rvm/rubies/ruby-1.9.3-p0/bin:/Users/jason/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/git/bin:/Users/jason/bin:/Users/jason/j64-701/bin:/usr/local/msp430/bin:/opt/android/tools:/opt/android/platform-tools"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c-header -arch armv7 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -Os -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-sign-compare -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk -Wdeprecated-declarations -g -Wno-conversion -Wno-sign-conversion -mthumb -miphoneos-version-min=5.1 -iquote /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/ClosedLib-generated-files.hmap -I/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/ClosedLib-own-target-headers.hmap -I/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/ClosedLib-all-target-headers.hmap -iquote /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/ClosedLib-project-headers.hmap -I/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/Release-iphoneos/include -I/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/DerivedSources/armv7 -I/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/DerivedSources -F/Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/Release-iphoneos --serialize-diagnostics /var/folders/_7/bqndftw16pgc956b_m4r40800000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClosedLib_Prefix-gqlnuxjucyibewdbiyhivxlrtstq/ClosedLib_Prefix.pch.dia -c /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/ClosedLib_Prefix.pch -o /var/folders/_7/bqndftw16pgc956b_m4r40800000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClosedLib_Prefix-gqlnuxjucyibewdbiyhivxlrtstq/ClosedLib_Prefix.pch.pth -MMD -MT dependencies -MF /var/folders/_7/bqndftw16pgc956b_m4r40800000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClosedLib_Prefix-gqlnuxjucyibewdbiyhivxlrtstq/ClosedLib_Prefix.pch.d36"717427E6-541B-424D-973E-3826FFF879ED-
+

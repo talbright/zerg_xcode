@@ -10,9 +10,14 @@ class BuildCommandMaker
 
   def make(verb)
     ['xcodebuild', '-sdk', @sdk.arg, '-configuration', @configuration, '-alltargets'] +
-    @options.map {|name, value| "#{name}=#{value}"} +
+    formatted_options +
     [verb]
   end
+
+  def formatted_options
+    @options.map {|name, value| "#{name}=#{value}"}
+  end
+  private :formatted_options
 
 end
 

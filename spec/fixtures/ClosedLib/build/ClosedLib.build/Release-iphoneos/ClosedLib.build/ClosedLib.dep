@@ -1,0 +1,4 @@
+ffffffffffffffffffffffffffffffff c847e4f40367e79cd58fe21b7fd9049c ffffffffffffffffffffffffffffffff 0 /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/Release-iphoneos/libClosedLib.a
+ffffffffffffffffffffffffffffffff d96aff99f835865ad4f434122774461e ffffffffffffffffffffffffffffffff 0 /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/ClosedLib.build/Release-iphoneos/ClosedLib.build/Objects-normal/armv7/ClosedNative.o
+00000000000000000000000000000000 d860a248c94e2e6a212e67330493bf8a ffffffffffffffffffffffffffffffff 0 /var/folders/_7/bqndftw16pgc956b_m4r40800000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClosedLib_Prefix-gqlnuxjucyibewdbiyhivxlrtstq/ClosedLib_Prefix.pch.pth
+00000000000000000000000000000000 d409f0d545d6e884cf6b80cc18b6de62 ffffffffffffffffffffffffffffffff 0 /Users/jason/src/zerg_xcode/spec/fixtures/ClosedLib/build/Release-iphoneos/usr/local/include/ClosedNative.h
