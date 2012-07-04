@@ -9,7 +9,7 @@ class BuildCommandMaker
     @options = options
   end
 
-  def make(verb)
+  def make_command(verb)
     start_xcodebuild_command
     add_option '-project', File.dirname(@project.source_filename)
     add_option '-sdk', @sdk.arg

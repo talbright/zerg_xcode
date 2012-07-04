@@ -5,6 +5,7 @@
 # License:: MIT
 
 require 'fileutils'
+require 'shellwords'
 
 # :nodoc: namespace
 module ZergXcode::Builder
@@ -36,11 +37,8 @@ module Runner
   def self.action(project, sdk, configuration, options, verb)
     # NOTE: not using -parallelizeTargets so the command line is less brittle,
     #       and to accomodate projects with bad dependencies
-    command = 'xcodebuild -project ' +
-        File.dirname(project.source_filename).inspect +
-        %Q| -sdk #{sdk.arg} -configuration #{configuration.inspect} | +
-        '-alltargets ' + options.map { "#{k}=#{v}".inspect }.join(' ') + ' ' +
-        verb.inspect + ' 2>&1'
+    build_command_maker = BuildCommandMaker.new(project, sdk, configuration, options)
+    command = build_command_maker.make_command(verb).shelljoin + " 2>&1"
     begin
       output = Kernel.`(command)
       return (/\*\* .* SUCCEEDED \*\*/ =~ output) ? true : false

@@ -20,7 +20,7 @@ describe BuildCommandMaker = ZergXcode::Builder::BuildCommandMaker do
       { :FOO => 'bar', 'BAZ' => 'QuX' }
     end
     let(:verb) {'clean'}
-    subject {BuildCommandMaker.new(project, sdk, configuration, options).make(verb)}
+    subject {BuildCommandMaker.new(project, sdk, configuration, options).make_command(verb)}
 
     it {should be_kind_of(Array)}
     it {should include('xcodebuild')}
