@@ -10,14 +10,19 @@ class BuildCommandMaker
   end
 
   def make(verb)
-    cmd = ['xcodebuild']
-    cmd += ['-project', File.dirname(@project.source_filename)]
-    cmd += ['-sdk', @sdk.arg]
-    cmd += ['-configuration', @configuration]
-    cmd += ['-alltargets']
-    cmd += formatted_options
-    cmd += [verb]
+    start_xcodebuild_command
+    @cmd += ['-project', File.dirname(@project.source_filename)]
+    @cmd += ['-sdk', @sdk.arg]
+    @cmd += ['-configuration', @configuration]
+    @cmd += ['-alltargets']
+    @cmd += formatted_options
+    @cmd += [verb]
   end
+
+  def start_xcodebuild_command
+    @cmd = ['xcodebuild']
+  end
+  private :start_xcodebuild_command
 
   def formatted_options
     @options.map {|name, value| "#{name}=#{value}"}
