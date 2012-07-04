@@ -17,16 +17,16 @@ module Runner
   #
   # Returns the directory containing the build products, or nil if the build
   # failed.
-  def self.build(project, sdk, configuration, options = {})
-    return nil unless action(project, sdk, configuration, options, 'build')
+  def self.build(project, sdk, configuration, options = {}, command_runner = CommandRunner.new)
+    return nil unless action(project, sdk, configuration, options, 'build', command_runner)
     Dir.glob(File.join(project.root_path, 'build', configuration + '-*')).first
   end
   
   # Removes the build products for an Xcode project.
   #
   # Returns true for success, or false if the removal failed.
-  def self.clean(project, sdk, configuration, options = {})
-    return_value = action(project, sdk, configuration, options, 'clean')
+  def self.clean(project, sdk, configuration, options = {}, command_runner = CommandRunner.new)
+    return_value = action(project, sdk, configuration, options, 'clean', command_runner)
     FileUtils.rm_rf File.join(project.root_path, 'build')
     return_value
   end
