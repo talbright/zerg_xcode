@@ -3,37 +3,20 @@ require 'zerg_xcode'
 describe ZergXcode::Builder::Runner do
   let(:project) {ZergXcode.load 'spec/fixtures/ClosedLib'}
   let(:sdk) {ZergXcode::Builder::Sdk.new 'iOS SDKs', 'iOS 5.1', 'iphoneos5.1'}
-  before do
-    @configuration = 'Release'
-    @golden_build_path = 'spec/fixtures/ClosedLib/build/Release-iphoneos'
-    @product = @golden_build_path + '/libClosedLib.a'
-    ZergXcode::Builder::Runner.clean(project, sdk, @configuration)
-  end
+  let(:configuration) {'Release'}
   
-  after do
-    ZergXcode::Builder::Runner.clean project, sdk, @configuration
-  end
-  
-  it "builds and cleans the project" do
-    build_path = ZergXcode::Builder::Runner.build project, sdk, @configuration
-    build_path.should == @golden_build_path
-    File.exist?(@product).should be_true
-
-    ZergXcode::Builder::Runner.clean(project, sdk, @configuration).should be_true
-    File.exist?(@product).should be_false
-  end
-
   describe '::action' do
 
     it 'reports success if output contains "SUCCEEDED"' do
       runner = mock :run => "Hello\n** BUILD SUCCEEDED **\n\n"
-      ZergXcode::Builder::Runner.action(project, sdk, @configuration, {}, 'build', runner).should be_true
+      ZergXcode::Builder::Runner.action(project, sdk, configuration, {}, 'build', runner).should be_true
     end
 
     it 'reports failure if output does not contain "SUCEEDED"' do
       runner = mock :run => "Hello\n** BUILD FAILED **\n\n"
-      ZergXcode::Builder::Runner.action(project, sdk, @configuration, {}, 'build', runner).should be_false
+      ZergXcode::Builder::Runner.action(project, sdk, configuration, {}, 'build', runner).should be_false
     end
 
   end
+
 end
