@@ -15,14 +15,19 @@ describe BuildCommandMaker = ZergXcode::Builder::BuildCommandMaker do
   describe "the resulting command" do
     let(:sdk) {ZergXcode::Builder::Sdk.new 'iPhone SDKs', 'iOS 5.1', 'iphone5.1'}
     let(:configuration) {'Twiddled-Release'}
+    let(:options) do
+      { :FOO => 'bar', 'BAZ' => 'QuX' }
+    end
     let(:verb) {'clean'}
-    subject {BuildCommandMaker.new(sdk, configuration).make(verb)}
+    subject {BuildCommandMaker.new(sdk, configuration, options).make(verb)}
 
     it {should be_kind_of(Array)}
     it {should include('xcodebuild')}
     it {should include('-alltargets')}
     it {should have_argument_with_value('-sdk', 'iphone5.1')}
     it {should have_argument_with_value('-configuration', configuration)}
+    it {should include('FOO=bar')}
+    it {should include('BAZ=QuX')}
     it 'should have the verb last' do
       subject.last.should == verb
     end
