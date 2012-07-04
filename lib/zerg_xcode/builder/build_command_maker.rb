@@ -3,7 +3,7 @@ module ZergXcode::Builder
 
 class BuildCommandMaker
   def make
-    ['xcodebuild']
+    ['xcodebuild', '-alltargets']
   end
 end
 

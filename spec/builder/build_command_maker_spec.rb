@@ -7,6 +7,7 @@ describe BuildCommandMaker = ZergXcode::Builder::BuildCommandMaker do
     subject {BuildCommandMaker.new.make}
     it {should be_kind_of(Array)}
     it {should include('xcodebuild')}
+    it {should include('-alltargets')}
   end
 
 end
