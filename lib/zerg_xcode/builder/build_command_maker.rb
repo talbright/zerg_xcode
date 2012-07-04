@@ -2,8 +2,12 @@
 module ZergXcode::Builder
 
 class BuildCommandMaker
+  def initialize(sdk)
+    @sdk = sdk
+  end
+
   def make
-    ['xcodebuild', '-alltargets']
+    ['xcodebuild', '-sdk', @sdk.arg, '-alltargets']
   end
 end
 
