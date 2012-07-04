@@ -34,11 +34,11 @@ module Runner
   # Executes an action using the Xcode builder.
   #
   # Returns true if the action suceeded, and false otherwise.
-  def self.action(project, sdk, configuration, options, verb)
+  def self.action(project, sdk, configuration, options, verb, command_runner = CommandRunner.new)
     build_command_maker = BuildCommandMaker.new(project, sdk, configuration, options)
     command = build_command_maker.make_command(verb)
     begin
-      output = CommandRunner.new.run(command)
+      output = command_runner.run(command)
       return (/\*\* .* SUCCEEDED \*\*/ =~ output) ? true : false
     end
   end
