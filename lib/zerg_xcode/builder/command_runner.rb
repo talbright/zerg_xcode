@@ -2,7 +2,7 @@
 module ZergXcode::Builder
 
 class CommandRunner
-  def run
+  def run(command_words)
   end
 end
 
