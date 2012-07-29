@@ -4,8 +4,14 @@ module ZergXcode # :nodoc:
 class FileReferenceBuilder
 
   FILE_TYPES = {
+    '.app' => 'wrapper.application',
+    '.framework' => 'wrapper.framework',
     '.h' => 'sourcecode.c.h',
     '.m' => 'sourcecode.c.objc',
+    '.mm' => 'sourcecode.cpp.objcpp',
+    '.plist' => 'text.plist.xml',
+    '.strings' => 'text.plist.strings',
+    '.xib' => 'file.xib',
   }
 
   def initialize(path)
